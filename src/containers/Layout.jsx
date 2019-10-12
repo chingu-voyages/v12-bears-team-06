@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Destination from '../components/Destination';
 
-function App() {
+const Layout = () => {
   const [destination, setDestination] = useState('');
 
   const handleChangeDestination = (e) => {
@@ -10,7 +10,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="">
       <Destination
         destination={destination}
         handleChangeDestination={handleChangeDestination} />
@@ -18,4 +18,4 @@ function App() {
   );
 }
 
-export default App;
+export default Layout;
