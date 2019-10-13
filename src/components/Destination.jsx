@@ -2,8 +2,8 @@ import React from 'react';
 
 const Destination = ({ destination, handleChangeDestination }) => {
   return(
-    <div className="">
-      <label>Destination: </label>
+    <div className="container container_destination">
+      <h2 className="">Destination</h2>
       <input
         type="text"
         value={destination}
