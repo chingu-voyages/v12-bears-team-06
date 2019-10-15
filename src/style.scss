@@ -205,3 +205,15 @@ img {
     color: $color-destination;
   }
 }
+
+.container_weather {
+
+  h2 {
+    color: $color-weather;
+  }
+
+  @media screen and (min-width: 900px) {
+    width: 25.4%;
+    min-width: 305px;
+  }
+}

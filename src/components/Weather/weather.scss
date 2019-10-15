@@ -1,0 +1,44 @@
+.weather_week {
+}
+
+
+.weather_daily {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 2rem;
+
+  @media screen and (min-width: 900px) {
+  }
+}
+
+.weather_date {
+  font-size: 1.6rem;
+
+  @media screen and (min-width: 900px) {
+    font-size: 1.8rem;
+  }
+}
+
+.weather_icon {
+  i {
+    margin: 0 .5rem;
+    font-size: 2.4rem;
+  
+    &:before {
+      width: 40px;
+      color: #B5B4B5;
+    }
+  }
+}
+
+.weather_temps {
+  font-size: 1.5rem;
+
+  span {
+    font-size: .7em;
+  }
+
+  @media screen and (min-width: 900px) {
+    font-size: 1.6rem;
+  }
+}
