@@ -18,7 +18,7 @@ const Weather = ({ forecast }) => {
           icon = icon.replace('-day', '');
         }
         if(icon.includes('clear')) {
-          icon = '-day-sunny';
+          icon = 'day-sunny';
         }
         return (
           <WeatherDaily
