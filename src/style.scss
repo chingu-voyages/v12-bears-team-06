@@ -164,11 +164,12 @@ img {
 * ================================== */
 [type="text"] {
   width: 100%;
-  max-width: 24rem;
   margin: 0 1rem 1rem 0;
   padding: .6rem;
   background: none;
+  border-radius: 2px;
   font-size: 1.6rem;
+  font-family: inherit;
 }
 
 
@@ -203,5 +204,17 @@ img {
 .container_destination {
   h2 {
     color: $color-destination;
+  }
+}
+
+.container_weather {
+
+  h2 {
+    color: $color-weather;
+  }
+
+  @media screen and (min-width: 900px) {
+    width: 25.4%;
+    min-width: 305px;
   }
 }

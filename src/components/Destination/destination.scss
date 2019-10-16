@@ -1,0 +1,27 @@
+$color-destination: #53CBA7;
+
+
+
+.form_destination {
+  [type="text"] {
+    &:focus {
+      box-shadow: 0 0 4px 0 rgba($color-destination, .6);
+    }
+
+    &:disabled {
+      box-shadow: none;
+    }
+  }
+
+  button {
+    display: inline-block;
+    width: 100%;
+    padding: .8em;
+    color: #fff;
+    background-color: $color-destination;
+    border-radius: 2px;
+    font-size: 1.4rem;
+    font-family: inherit;
+    letter-spacing: .02em;
+  }
+}
