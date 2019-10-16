@@ -1,13 +1,14 @@
 import React from 'react';
 import moment from 'moment';
 
+import Loading from '../Loading/Loading';
 import WeatherDaily from './WeatherDaily';
 import './weather.scss';
 
 const Weather = ({ forecast }) => {
   const formatDaily = () => {
     return forecast.loading ? (
-      <p>Please Enter Destination ...</p>
+      <Loading />
     ) : (
       forecast.map(daily => {
         const date = moment(daily.date).format('MM/DD');

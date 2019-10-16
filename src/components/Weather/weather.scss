@@ -20,19 +20,23 @@
 }
 
 .weather_icon {
+  margin: 0 auto;
+  vertical-align: middle;
+
   i {
-    margin: 0 .5rem;
     font-size: 2.4rem;
+    text-align: center;
   
     &:before {
-      width: 40px;
       color: #B5B4B5;
     }
   }
 }
 
 .weather_temps {
+  width: 55%;
   font-size: 1.5rem;
+  text-align: right;
 
   span {
     font-size: .7em;

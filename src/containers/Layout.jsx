@@ -15,11 +15,23 @@ const Layout = () => {
 
   useEffect(() => {
     const getAPI = async () => {
-      const { data } = await axios.get(`http://localhost:3001/destination?address=Bangkok`)
-      .catch(error => console.log('error'));
-      //console.log(data.forecast, data, 'Layout.js');
-      setDestination(data.location);
-      setForecast(data.forecast);
+      await axios
+        .get(`http://localhost:3001/destination?address=Tokyo`)
+        //.get(`http://localhost:3001/user/me/destination`)
+        .then(res => res.data)
+        .then(data => {
+          setDestination(data.location);
+          setForecast(data.forecast);
+        })
+        .catch(error => {
+          if (error.response) {
+            console.log(error.response.status);
+          } else if (error.request) {
+            console.log('No Destination');
+          } else {
+            console.log('Error', error.message);
+          }
+        });
     };
     getAPI();
   }, []);
