@@ -16,7 +16,7 @@ const Layout = () => {
   useEffect(() => {
     const getAPI = async () => {
       await axios
-        .get(`http://localhost:3001/destination?address=Tokyo`)
+        .get(`http://localhost:3001/destination?address=Toyko`)
         //.get(`http://localhost:3001/user/me/destination`)
         .then(res => res.data)
         .then(data => {
@@ -27,9 +27,9 @@ const Layout = () => {
           if (error.response) {
             console.log(error.response.status);
           } else if (error.request) {
-            console.log('No Destination');
+            console.log("No Destination");
           } else {
-            console.log('Error', error.message);
+            console.log("Error", error.message);
           }
         });
     };
