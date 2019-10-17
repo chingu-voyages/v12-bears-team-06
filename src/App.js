@@ -5,7 +5,7 @@ import Dashboard from './containers/Dashboard';
 import Loading from './components/Loading/Loading';
 import './style.scss';
 
-function App() {
+function App() { 
 
   return (
     <div className="app">
