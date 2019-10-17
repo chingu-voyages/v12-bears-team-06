@@ -3,6 +3,7 @@ import axios from 'axios';
 import {checkValidity, updateObject} from '../utils/utility';
 import Nav from '../components/Nav/Nav';
 import Auth from '../components/Auth/Auth';
+import LogoutMessage from '../components/LogoutMessage/LogoutMessage';
 
 const Home = (props) => {
 
@@ -40,6 +41,7 @@ const Home = (props) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
   const [isNewUser, setIsNewUser] = useState(false);
+  const [isLogoutMessage, setIsLogoutMessage] = useState(true);
 
   const checkAuthState = () => {
     const token = localStorage.getItem('token');
@@ -72,6 +74,7 @@ const Home = (props) => {
         username: username
       }
     }
+    console.log(url);
     axios.post(url, data)
       .then(res => {
         localStorage.setItem('token', res.data.token);
@@ -93,6 +96,12 @@ const Home = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
+    if (event.target.id === 'register') {
+      setIsNewUser(true);
+    };
+    if (event.target.id === 'login') {
+      setIsNewUser(false);
+    };
     if(email.isValid && password.isValid) {
       auth(email.value, password.value, username.value);
     } else {
@@ -106,6 +115,7 @@ const Home = (props) => {
       isValid: checkValidity(event.target.value, email.validation),
     });
     setEmail(updatedEmail);
+    console.log(event.target);
   }
   const passwordChangedHandler = (event) => {
     const updatedPassword = updateObject(password, {
@@ -114,7 +124,6 @@ const Home = (props) => {
     });
     setPassword(updatedPassword);
   }
-
   const usernameChangedHandler = (event) => {
     const updatedUsername = updateObject(username, {
       value: event.target.value,
@@ -134,8 +143,20 @@ const Home = (props) => {
     setIsNewUser(true);
   }
 
+  let logoutMessage = null;
+  if (props.history.action === 'PUSH') {
+    logoutMessage = <LogoutMessage/>
+      setTimeout(() => {
+        setIsLogoutMessage(false);
+      }, 1000);
+  }
+  if (!isLogoutMessage) {
+    logoutMessage = null;
+  }
+
   return (
     <React.Fragment>
+      {logoutMessage}
       <Nav auth={openModalHandler} authenticated={isAuth}/>
       <Auth
         isVisible={isVisible}

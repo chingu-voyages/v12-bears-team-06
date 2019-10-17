@@ -29,14 +29,14 @@ const Auth = (props) => {
               error={props.isNewUser ? undefined : props.isError}
               />
             <div className="line"></div>
-            <Register 
+            <Register
               changedPassword={props.isNewUser ? props.changedPassword : undefined}
               changedEmail={props.isNewUser ? props.changedEmail : undefined}
-              changedUsername={props.isNewUser ? props.changedUsername : undefined}
+              changedUsername={props.changedUsername}
               email={props.isNewUser ? props.email : undefined}
-              password={props.isNewUser ? props.password : undefined}
-              loading={props.isNewUser ? props.isLoading : undefined}
-              username={props.isNewUser ? props.username : undefined}
+              password={props.isNewUser ? props.password : ''}
+              username={props.isNewUser ? props.username : ''}
+              loading={props.isNewUser ? props.isLoading : ''}
               submit={props.isNewUser ? props.submit : undefined}
               valid={props.isNewUser ? props.isValid : undefined}
               error={props.isNewUser ? props.isError : undefined}

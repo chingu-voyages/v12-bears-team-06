@@ -5,7 +5,7 @@ const XIcon = (props) => {
 
   return (
     <div className={classes.XIcon} onClick={props.clicked}>
-      <div className={classes.open}>
+      <div className={classes.icon}>
         <span></span>
         <span></span>
         <span></span>
