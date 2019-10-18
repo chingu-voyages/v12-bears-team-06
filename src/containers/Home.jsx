@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import axios from 'axios';
+import axios from '../utils/api';
 import {checkValidity, updateObject} from '../utils/utility';
 import Nav from '../components/Nav/Nav';
 import Auth from '../components/Auth/Auth';
@@ -74,7 +74,6 @@ const Home = (props) => {
         username: username
       }
     }
-    console.log(url);
     axios.post(url, data)
       .then(res => {
         localStorage.setItem('token', res.data.token);
@@ -115,7 +114,6 @@ const Home = (props) => {
       isValid: checkValidity(event.target.value, email.validation),
     });
     setEmail(updatedEmail);
-    console.log(event.target);
   }
   const passwordChangedHandler = (event) => {
     const updatedPassword = updateObject(password, {
