@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../utils/api';
 
 import Destination from '../components/Destination/Destination';
 import Weather from '../components/Weather/Weather';
@@ -85,7 +85,7 @@ const Dashboard = (props) => {
       .then(res => {
         localStorage.removeItem('token');
         props.history.push('/');
-      }).catch(err => console.log('Sorry, something wnet wrong. Please try again.'));
+      }).catch(err => console.log('Sorry, something went wrong. Please try again.'));
   }
 
   return (
