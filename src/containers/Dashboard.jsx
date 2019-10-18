@@ -19,7 +19,8 @@ const Dashboard = (props) => {
   const [forecast, setForecast] = useState(initialForecastState);
   const [file, setFile] = useState(null);
   const [avatar, setAvatar] = useState(null);
-
+  const [uploadIsLoading, setUploadIsLoading] = useState(false);
+  const [isUpload, setIsUpload] = useState(false);
   const [user, setUser] = useState(null);
 
   let baseURL = "http://localhost:3001";
@@ -33,6 +34,7 @@ const Dashboard = (props) => {
       .then(res => setUser(res.data.user))
       .catch(err => props.history.push('/'));
     }
+    getAvatar();
 
     getAPI();
   }, [props.history]);
@@ -77,11 +79,13 @@ const Dashboard = (props) => {
     getAPI();
   };
 
-  const uploadHandler = event => {
-    setFile(event.target.files[0])
+  const uploadHandler = (event) => {
+    setFile(event.target.files[0]);
+    setIsUpload(true);
   }
 
   const submitUploadHandler = () => {
+    setUploadIsLoading(true);
     const token = localStorage.getItem('token');
     const config = {
       headers: {'Authorization':  token, 'content-type': 'multipart/form-data'}
@@ -89,8 +93,21 @@ const Dashboard = (props) => {
     const formData = new FormData();
     formData.append('avatar', file)
     axios.post('/users/me/avatar', formData, config)
-    .then(res => getAvatar())
-    .catch(err => console.log('Sorry, something went wrong. Please try again.'))
+    .then(res => {
+      getAvatar();
+      setUploadIsLoading(false);
+      setIsUpload(false);
+    })
+    .catch(err => {
+      console.log('Sorry, something went wrong. Please try again.');
+      setUploadIsLoading(false);
+    })
+  }
+
+  const getAvatar = () => {
+    axios.get('/users/me/avatar', {headers: {'Authorization': localStorage.getItem('token')}})
+      .then(res => setAvatar(res.data))
+      .catch(err => console.log(err))
   }
 
   const logoutHandler = () => {
@@ -106,13 +123,6 @@ const Dashboard = (props) => {
       }).catch(err => console.log('Sorry, something went wrong. Please try again.'));
   }
 
-  const getAvatar = () => {
-    axios.get('/users/me/avatar', {headers: {'Authorization': localStorage.getItem('token')}})
-      .then(res => setAvatar(res.data))
-      .catch(err => console.log(err))
-  }
-
-
   return (
     <div className="">
       <div className="container_wrap">
@@ -120,7 +130,10 @@ const Dashboard = (props) => {
         <Avatar
           upload={uploadHandler}
           submit={submitUploadHandler}
-          avatar={avatar}/>
+          avatar={avatar}
+          username={user}
+          isLoading={uploadIsLoading}
+          isUpload={isUpload}/>
         <Destination
           name={destination.name}
           editing={destination.editing}

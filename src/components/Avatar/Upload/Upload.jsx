@@ -3,7 +3,10 @@ import React from 'react';
 const Upload = (props) => {
 
   return (
-    <input type="file" name="avatar" onChange={props.upload}/>
+    <React.Fragment>
+      <input type="file" name="avatar" id="avatar" className="inputFile" onChange={props.upload}/>
+      <label htmlFor="avatar">Choose image</label>
+    </React.Fragment>
   );
 };
 
