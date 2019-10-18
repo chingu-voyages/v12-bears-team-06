@@ -40,7 +40,6 @@ const Auth = (props) => {
               loading={props.isNewUser ? props.isLoading : ''}
               valid={props.isNewUser ? props.isValid : undefined}
               error={props.isNewUser ? props.isError : undefined}
-              focus={props.focus}
               />
           </div>
       </div>

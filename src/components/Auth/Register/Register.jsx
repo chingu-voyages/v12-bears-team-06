@@ -11,7 +11,7 @@ const Register = (props) => {
       <h2>Create Account</h2>
       <Message message={message}/>
         <form>
-          <input type="username" placeholder="Username" name="email" onFocus={props.focus} onChange={props.changedUsername} value={props.username} required/>
+          <input type="username" placeholder="Username" name="email" onChange={props.changedUsername} value={props.username} required/>
           <input type="email" placeholder="Email" name="email" onChange={props.changedEmail} value={props.email} required/>
           <input type="password"  placeholder="Password" name="password" onChange={props.changedPassword} value={props.password} required/>
           <button className="second" id="register" onClick={props.submit}>{props.loading ? <Loading/> : 'Register'}</button>

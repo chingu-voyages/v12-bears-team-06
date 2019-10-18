@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../utils/api';
-
+import Avatar from '../components/Avatar/Avatar';
 import Destination from '../components/Destination/Destination';
 import Weather from '../components/Weather/Weather';
 
@@ -17,6 +17,8 @@ const initialForecastState = {
 const Dashboard = (props) => {
   const [destination, setDestination] = useState(initialDestinationState);
   const [forecast, setForecast] = useState(initialForecastState);
+  const [file, setFile] = useState(null);
+  const [avatar, setAvatar] = useState(null);
 
   const [user, setUser] = useState(null);
 
@@ -75,6 +77,22 @@ const Dashboard = (props) => {
     getAPI();
   };
 
+  const uploadHandler = event => {
+    setFile(event.target.files[0])
+  }
+
+  const submitUploadHandler = () => {
+    const token = localStorage.getItem('token');
+    const config = {
+      headers: {'Authorization':  token, 'content-type': 'multipart/form-data'}
+    };
+    const formData = new FormData();
+    formData.append('avatar', file)
+    axios.post('/users/me/avatar', formData, config)
+    .then(res => getAvatar())
+    .catch(err => console.log('Sorry, something went wrong. Please try again.'))
+  }
+
   const logoutHandler = () => {
     const token = localStorage.getItem('token');
     const config = {
@@ -88,10 +106,21 @@ const Dashboard = (props) => {
       }).catch(err => console.log('Sorry, something went wrong. Please try again.'));
   }
 
+  const getAvatar = () => {
+    axios.get('/users/me/avatar', {headers: {'Authorization': localStorage.getItem('token')}})
+      .then(res => setAvatar(res.data))
+      .catch(err => console.log(err))
+  }
+
+
   return (
     <div className="">
       <div className="container_wrap">
         <button onClick={logoutHandler} className="logout">Log Out</button>
+        <Avatar
+          upload={uploadHandler}
+          submit={submitUploadHandler}
+          avatar={avatar}/>
         <Destination
           name={destination.name}
           editing={destination.editing}
