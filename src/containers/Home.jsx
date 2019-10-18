@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {Link} from 'react-router-dom';
 import axios from '../utils/api';
 import {checkValidity, updateObject} from '../utils/utility';
 import Nav from '../components/Nav/Nav';
@@ -197,6 +198,11 @@ const Home = (props) => {
     logoutMessage = null;
   }
 
+  let button = <button className="plan" onClick={openModalHandler}>Plan your trip</button>
+  if(isAuth) {
+    button = <button className="plan"><Link to="/board">Plan your trip</Link></button>
+  }
+
   return (
     <React.Fragment>
       {logoutMessage}
@@ -220,7 +226,7 @@ const Home = (props) => {
         passwordRegister={passwordRegister.value}
         isNewUser={isNewUser}
         />
-      <button className="plan">Plan your trip</button>
+      {button}
     </React.Fragment>
   )
 }
