@@ -3,6 +3,7 @@ import axios from '../utils/api';
 import Avatar from '../components/Avatar/Avatar';
 import Destination from '../components/Destination/Destination';
 import Weather from '../components/Weather/Weather';
+import Message from '../components/Message/Message';
 
 const initialDestinationState = {
   name: '',
@@ -22,6 +23,7 @@ const Dashboard = (props) => {
   const [uploadIsLoading, setUploadIsLoading] = useState(false);
   const [isUpload, setIsUpload] = useState(false);
   const [user, setUser] = useState(null);
+  const [isError, setIsError] = useState(false);
 
   let baseURL = "http://localhost:3001";
 
@@ -99,7 +101,7 @@ const Dashboard = (props) => {
       setIsUpload(false);
     })
     .catch(err => {
-      console.log('Sorry, something went wrong. Please try again.');
+      setIsError(true);
       setUploadIsLoading(false);
     })
   }
@@ -120,11 +122,20 @@ const Dashboard = (props) => {
       .then(res => {
         localStorage.removeItem('token');
         props.history.push('/');
-      }).catch(err => console.log('Sorry, something went wrong. Please try again.'));
+      }).catch(err => setIsError(true));
+  }
+
+  let errorMessage = null;
+  if (isError) {
+    errorMessage = <Message error={isError}/>
+      setTimeout(() => {
+        setIsError(false);
+      }, 1000);
   }
 
   return (
     <div className="">
+      {errorMessage}
       <div className="container_wrap">
         <button onClick={logoutHandler} className="logout">Log Out</button>
         <Avatar

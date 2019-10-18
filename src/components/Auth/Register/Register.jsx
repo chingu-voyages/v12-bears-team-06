@@ -1,6 +1,6 @@
 import React from 'react';
 import Loading from '../../Loading/Loading';
-import Message from '../../UI/Message/Message';
+import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
 
 const Register = (props) => {
   const message = props.error ? 'Something went wrong. Please try again.' :
@@ -9,7 +9,7 @@ const Register = (props) => {
   return (
     <div>
       <h2>Create Account</h2>
-      <Message message={message}/>
+      <ErrorMessage message={message}/>
         <form>
           <input type="username" placeholder="Username" name="email" onChange={props.changedUsername} value={props.username} required/>
           <input type="email" placeholder="Email" name="email" onChange={props.changedEmail} value={props.email} required/>

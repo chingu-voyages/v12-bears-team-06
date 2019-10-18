@@ -3,7 +3,7 @@ import axios from '../utils/api';
 import {checkValidity, updateObject} from '../utils/utility';
 import Nav from '../components/Nav/Nav';
 import Auth from '../components/Auth/Auth';
-import LogoutMessage from '../components/LogoutMessage/LogoutMessage';
+import Message from '../components/Message/Message';
 
 const Home = (props) => {
 
@@ -18,11 +18,6 @@ const Home = (props) => {
 
   const [password, setPassword] = useState({
     value: '',
-    validation: {
-      required: true,
-      minLength: 7,
-    },
-    isValid: false
   });
 
   const [emailRegister, setEmailRegister] = useState({
@@ -119,7 +114,7 @@ const Home = (props) => {
     if (event.target.id === 'login') {
       setIsNewUser(false);
     };
-    if((email.isValid && password.isValid) || (emailRegister.isValid && passwordRegister.isValid && username.isValid)) {
+    if((email.isValid) || (emailRegister.isValid && passwordRegister.isValid && username.isValid)) {
       setIsValid(true);
       auth(email.value, password.value, username.value, emailRegister.value, passwordRegister.value);
     } else {
@@ -137,7 +132,6 @@ const Home = (props) => {
   const passwordChangedHandler = (event) => {
     const updatedPassword = updateObject(password, {
       value: event.target.value,
-      isValid: checkValidity(event.target.value, password.validation),
     });
     setPassword(updatedPassword);
   }
@@ -194,7 +188,7 @@ const Home = (props) => {
 
   let logoutMessage = null;
   if (props.history.action === 'PUSH') {
-    logoutMessage = <LogoutMessage/>
+    logoutMessage = <Message/>
       setTimeout(() => {
         setIsLogoutMessage(false);
       }, 1000);
