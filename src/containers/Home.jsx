@@ -145,14 +145,14 @@ const Home = (props) => {
   const emailRegisterChangedHandler = (event) => {
     const updatedEmail = updateObject(emailRegister, {
       value: event.target.value,
-      isValid: checkValidity(event.target.value, email.validation),
+      isValid: checkValidity(event.target.value, emailRegister.validation),
     });
     setEmailRegister(updatedEmail);
   }
   const passwordRegisterChangedHandler = (event) => {
     const updatedPassword = updateObject(passwordRegister, {
       value: event.target.value,
-      isValid: checkValidity(event.target.value, password.validation),
+      isValid: checkValidity(event.target.value, passwordRegister.validation),
     });
     setPasswordRegister(updatedPassword);
   }
