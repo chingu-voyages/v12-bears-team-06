@@ -25,6 +25,24 @@ const Home = (props) => {
     isValid: false
   });
 
+  const [emailRegister, setEmailRegister] = useState({
+    value: '',
+    validation: {
+      required: true,
+      isEmail: true
+    },
+    isValid: false
+  });
+
+  const [passwordRegister, setPasswordRegister] = useState({
+    value: '',
+    validation: {
+      required: true,
+      minLength: 7,
+    },
+    isValid: false
+  });
+
   const [username, setUsername] = useState({
     value: '',
     validation: {
@@ -58,7 +76,7 @@ const Home = (props) => {
     }
   };
 
-  const auth = (email, password, username) => {
+  const auth = (email, password, username, emailRegister, passwordRegister) => {
     setIsLoading(true);
     setIsError(false);
     let url = '/users/login';
@@ -69,8 +87,8 @@ const Home = (props) => {
     if (isNewUser) {
       url = '/users/register';
       data = {
-        email: email,
-        password: password,
+        email: emailRegister,
+        password: passwordRegister,
         username: username
       }
     }
@@ -101,8 +119,9 @@ const Home = (props) => {
     if (event.target.id === 'login') {
       setIsNewUser(false);
     };
-    if(email.isValid && password.isValid) {
-      auth(email.value, password.value, username.value);
+    if((email.isValid && password.isValid) || (emailRegister.isValid && passwordRegister.isValid && username.isValid)) {
+      setIsValid(true);
+      auth(email.value, password.value, username.value, emailRegister.value, passwordRegister.value);
     } else {
       setIsValid(false)
     }
@@ -128,7 +147,20 @@ const Home = (props) => {
       isValid: checkValidity(event.target.value, username.validation),
     });
     setUsername(updatedUsername);
-    setIsNewUser(true);
+  }
+  const emailRegisterChangedHandler = (event) => {
+    const updatedEmail = updateObject(emailRegister, {
+      value: event.target.value,
+      isValid: checkValidity(event.target.value, email.validation),
+    });
+    setEmailRegister(updatedEmail);
+  }
+  const passwordRegisterChangedHandler = (event) => {
+    const updatedPassword = updateObject(passwordRegister, {
+      value: event.target.value,
+      isValid: checkValidity(event.target.value, password.validation),
+    });
+    setPasswordRegister(updatedPassword);
   }
 
   const openModalHandler = () => {
@@ -138,7 +170,26 @@ const Home = (props) => {
 
   const closeModalHandler = () => {
     setIsVisible(false);
-    setIsNewUser(true);
+    const updatedPassword = updateObject(password, {
+      value: ''
+    });
+    setPassword(updatedPassword);
+    const updatedEmail = updateObject(email, {
+      value: ''
+    });
+    setEmail(updatedEmail);
+    const updatedUsername = updateObject(username, {
+      value: ''
+    });
+    setUsername(updatedUsername);
+    const updatedPasswordRegister = updateObject(passwordRegister, {
+      value: ''
+    });
+    setUsername(updatedPasswordRegister);
+    const updatedEmailRegister = updateObject(emailRegister, {
+      value: ''
+    });
+    setUsername(updatedEmailRegister);
   }
 
   let logoutMessage = null;
@@ -166,10 +217,15 @@ const Home = (props) => {
         changedEmail={(event) => emailChangedHandler(event)}
         changedPassword={(event) => passwordChangedHandler(event)}
         changedUsername={(event) => usernameChangedHandler(event)}
-        isNewUser={isNewUser}
+        changedEmailRegister={(event) => emailRegisterChangedHandler(event)}
+        changedPasswordRegister={(event) => passwordRegisterChangedHandler(event)}
         email={email.value}
         password={password.value}
-        username={username.value}/>
+        username={username.value}
+        emailRegister={emailRegister.value}
+        passwordRegister={passwordRegister.value}
+        isNewUser={isNewUser}
+        />
       <button className="plan">Plan your trip</button>
     </React.Fragment>
   )

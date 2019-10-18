@@ -19,27 +19,28 @@ const Auth = (props) => {
         <XIcon clicked={props.hide}/>
           <div className="form">
             <Login
-              changedPassword={props.isNewUser ? undefined : props.changedPassword}
-              changedEmail={props.isNewUser ? undefined : props.changedEmail}
-              email={props.isNewUser ? undefined : props.email}
-              password={props.isNewUser ? undefined : props.password}
+              changedPassword={props.changedPassword}
+              changedEmail={props.changedEmail}
+              email={props.email}
+              password={props.password}
+              submit={props.submit}
               loading={props.isNewUser ? undefined : props.isLoading}
-              submit={props.isNewUser ? undefined : props.submit}
               valid={props.isNewUser ? undefined : props.isValid}
               error={props.isNewUser ? undefined : props.isError}
               />
             <div className="line"></div>
             <Register
-              changedPassword={props.isNewUser ? props.changedPassword : undefined}
-              changedEmail={props.isNewUser ? props.changedEmail : undefined}
+              changedPassword={props.changedPasswordRegister}
+              changedEmail={props.changedEmailRegister}
               changedUsername={props.changedUsername}
-              email={props.isNewUser ? props.email : undefined}
-              password={props.isNewUser ? props.password : ''}
-              username={props.isNewUser ? props.username : ''}
+              email={props.emailRegister}
+              password={props.passwordRegister}
+              username={props.username}
+              submit={props.submit}
               loading={props.isNewUser ? props.isLoading : ''}
-              submit={props.isNewUser ? props.submit : undefined}
               valid={props.isNewUser ? props.isValid : undefined}
               error={props.isNewUser ? props.isError : undefined}
+              focus={props.focus}
               />
           </div>
       </div>
