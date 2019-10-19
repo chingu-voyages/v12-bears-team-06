@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../utils/api';
-
+import Avatar from '../components/Avatar/Avatar';
 import Destination from '../components/Destination/Destination';
 import Weather from '../components/Weather/Weather';
+import Message from '../components/Message/Message';
 
 const initialDestinationState = {
   name: '',
@@ -17,8 +18,12 @@ const initialForecastState = {
 const Dashboard = (props) => {
   const [destination, setDestination] = useState(initialDestinationState);
   const [forecast, setForecast] = useState(initialForecastState);
-
+  const [file, setFile] = useState(null);
+  const [avatar, setAvatar] = useState(null);
+  const [uploadIsLoading, setUploadIsLoading] = useState(false);
+  const [isUpload, setIsUpload] = useState(false);
   const [user, setUser] = useState(null);
+  const [isError, setIsError] = useState(false);
 
   let baseURL = "http://localhost:3001";
 
@@ -31,6 +36,7 @@ const Dashboard = (props) => {
       .then(res => setUser(res.data.user))
       .catch(err => props.history.push('/'));
     }
+    getAvatar();
 
     getAPI();
   }, [props.history]);
@@ -75,6 +81,37 @@ const Dashboard = (props) => {
     getAPI();
   };
 
+  const uploadHandler = (event) => {
+    setFile(event.target.files[0]);
+    setIsUpload(true);
+  }
+
+  const submitUploadHandler = () => {
+    setUploadIsLoading(true);
+    const token = localStorage.getItem('token');
+    const config = {
+      headers: {'Authorization':  token, 'content-type': 'multipart/form-data'}
+    };
+    const formData = new FormData();
+    formData.append('avatar', file)
+    axios.post('/users/me/avatar', formData, config)
+    .then(res => {
+      getAvatar();
+      setUploadIsLoading(false);
+      setIsUpload(false);
+    })
+    .catch(err => {
+      setIsError(true);
+      setUploadIsLoading(false);
+    })
+  }
+
+  const getAvatar = () => {
+    axios.get('/users/me/avatar', {headers: {'Authorization': localStorage.getItem('token')}})
+      .then(res => setAvatar(res.data))
+      .catch(err => console.log(err))
+  }
+
   const logoutHandler = () => {
     const token = localStorage.getItem('token');
     const config = {
@@ -85,13 +122,29 @@ const Dashboard = (props) => {
       .then(res => {
         localStorage.removeItem('token');
         props.history.push('/');
-      }).catch(err => console.log('Sorry, something went wrong. Please try again.'));
+      }).catch(err => setIsError(true));
+  }
+
+  let errorMessage = null;
+  if (isError) {
+    errorMessage = <Message error={isError}/>
+      setTimeout(() => {
+        setIsError(false);
+      }, 1000);
   }
 
   return (
     <div className="">
+      {errorMessage}
       <div className="container_wrap">
         <button onClick={logoutHandler} className="logout">Log Out</button>
+        <Avatar
+          upload={uploadHandler}
+          submit={submitUploadHandler}
+          avatar={avatar}
+          username={user}
+          isLoading={uploadIsLoading}
+          isUpload={isUpload}/>
         <Destination
           name={destination.name}
           editing={destination.editing}

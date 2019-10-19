@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
+import {Link} from 'react-router-dom';
 import axios from '../utils/api';
 import {checkValidity, updateObject} from '../utils/utility';
 import Nav from '../components/Nav/Nav';
 import Auth from '../components/Auth/Auth';
-import LogoutMessage from '../components/LogoutMessage/LogoutMessage';
+import Message from '../components/Message/Message';
 
 const Home = (props) => {
 
@@ -18,11 +19,6 @@ const Home = (props) => {
 
   const [password, setPassword] = useState({
     value: '',
-    validation: {
-      required: true,
-      minLength: 7,
-    },
-    isValid: false
   });
 
   const [emailRegister, setEmailRegister] = useState({
@@ -119,7 +115,7 @@ const Home = (props) => {
     if (event.target.id === 'login') {
       setIsNewUser(false);
     };
-    if((email.isValid && password.isValid) || (emailRegister.isValid && passwordRegister.isValid && username.isValid)) {
+    if((email.isValid) || (emailRegister.isValid && passwordRegister.isValid && username.isValid)) {
       setIsValid(true);
       auth(email.value, password.value, username.value, emailRegister.value, passwordRegister.value);
     } else {
@@ -137,7 +133,6 @@ const Home = (props) => {
   const passwordChangedHandler = (event) => {
     const updatedPassword = updateObject(password, {
       value: event.target.value,
-      isValid: checkValidity(event.target.value, password.validation),
     });
     setPassword(updatedPassword);
   }
@@ -151,14 +146,14 @@ const Home = (props) => {
   const emailRegisterChangedHandler = (event) => {
     const updatedEmail = updateObject(emailRegister, {
       value: event.target.value,
-      isValid: checkValidity(event.target.value, email.validation),
+      isValid: checkValidity(event.target.value, emailRegister.validation),
     });
     setEmailRegister(updatedEmail);
   }
   const passwordRegisterChangedHandler = (event) => {
     const updatedPassword = updateObject(passwordRegister, {
       value: event.target.value,
-      isValid: checkValidity(event.target.value, password.validation),
+      isValid: checkValidity(event.target.value, passwordRegister.validation),
     });
     setPasswordRegister(updatedPassword);
   }
@@ -194,13 +189,18 @@ const Home = (props) => {
 
   let logoutMessage = null;
   if (props.history.action === 'PUSH') {
-    logoutMessage = <LogoutMessage/>
+    logoutMessage = <Message/>
       setTimeout(() => {
         setIsLogoutMessage(false);
       }, 1000);
   }
   if (!isLogoutMessage) {
     logoutMessage = null;
+  }
+
+  let button = <button className="plan" onClick={openModalHandler}>Plan your trip</button>
+  if(isAuth) {
+    button = <button className="plan"><Link to="/board">Plan your trip</Link></button>
   }
 
   return (
@@ -226,7 +226,7 @@ const Home = (props) => {
         passwordRegister={passwordRegister.value}
         isNewUser={isNewUser}
         />
-      <button className="plan">Plan your trip</button>
+      {button}
     </React.Fragment>
   )
 }

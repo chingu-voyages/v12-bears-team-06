@@ -25,7 +25,6 @@ const Auth = (props) => {
               password={props.password}
               submit={props.submit}
               loading={props.isNewUser ? undefined : props.isLoading}
-              valid={props.isNewUser ? undefined : props.isValid}
               error={props.isNewUser ? undefined : props.isError}
               />
             <div className="line"></div>
@@ -40,7 +39,6 @@ const Auth = (props) => {
               loading={props.isNewUser ? props.isLoading : ''}
               valid={props.isNewUser ? props.isValid : undefined}
               error={props.isNewUser ? props.isError : undefined}
-              focus={props.focus}
               />
           </div>
       </div>
