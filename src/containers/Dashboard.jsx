@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../utils/api';
 
 import Destination from '../components/Destination/Destination';
 import Weather from '../components/Weather/Weather';
@@ -14,15 +14,26 @@ const initialForecastState = {
   loading: true
 };
 
-const Layout = () => {
+const Dashboard = (props) => {
   const [destination, setDestination] = useState(initialDestinationState);
   const [forecast, setForecast] = useState(initialForecastState);
+
+  const [user, setUser] = useState(null);
 
   let baseURL = "http://localhost:3001";
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+       props.history.push('/')
+    } else {
+      axios.get('/auth', {headers: {'Authorization': token}})
+      .then(res => setUser(res.data.user))
+      .catch(err => props.history.push('/'));
+    }
+
     getAPI();
-  }, []);
+  }, [props.history]);
 
   const getAPI = async () => {
     await axios
@@ -64,9 +75,23 @@ const Layout = () => {
     getAPI();
   };
 
+  const logoutHandler = () => {
+    const token = localStorage.getItem('token');
+    const config = {
+      headers: {'Authorization':  token}
+    };
+    const bodyParameters = {key: 'value'}
+    axios.post('/users/logout', bodyParameters, config)
+      .then(res => {
+        localStorage.removeItem('token');
+        props.history.push('/');
+      }).catch(err => console.log('Sorry, something went wrong. Please try again.'));
+  }
+
   return (
     <div className="">
       <div className="container_wrap">
+        <button onClick={logoutHandler} className="logout">Log Out</button>
         <Destination
           name={destination.name}
           editing={destination.editing}
@@ -79,4 +104,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default Dashboard;
