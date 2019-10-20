@@ -9,48 +9,47 @@ import Message from '../components/Message/Message';
 const FORECAST = [];
 
 const Dashboard = (props) => {
-  const [destination, setDestination] = useState('');
-  const [forecast, setForecast] = useState(FORECAST);
-  const [file, setFile] = useState(null);
-  const [avatar, setAvatar] = useState(null);
-  const [uploadIsLoading, setUploadIsLoading] = useState(false);
-  const [isUpload, setIsUpload] = useState(false);
-  const [user, setUser] = useState(null);
-  const [isError, setIsError] = useState(false);
-  const [loading, setLoading] = useState(true);
+const [destination, setDestination] = useState('');
+const [forecast, setForecast] = useState(FORECAST);
+const [file, setFile] = useState(null);
+const [avatar, setAvatar] = useState(null);
+const [uploadIsLoading, setUploadIsLoading] = useState(false);
+const [isUpload, setIsUpload] = useState(false);
+const [user, setUser] = useState(null);
+const [isError, setIsError] = useState(false);
+const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-       props.history.push('/')
-    } else {
-      axios.get('/auth', {headers: {'Authorization': token}})
-      .then(res => setUser(res.data.user))
-      .catch(err => props.history.push('/'));
-    }
-    getAvatar();
+useEffect(() => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+     props.history.push('/')
+  } else {
+    axios.get('/auth', {headers: {'Authorization': token}})
+    .then(res => setUser(res.data.user))
+    .catch(err => props.history.push('/'));
+  }
+  getAvatar();
+  getDestination();
+}, [props.history]);
 
-    getDestination();
-  }, [props.history]);
-
-  const getDestination = async () => {
-    await axios
-      .get(`users/me/destination`, {
-        headers: { Authorization: localStorage.getItem('token') }
-      })
-      .then(res => {
-        setDestination(res.data.destination);
-        const userDestination = res.data.destination;
-        axios
-          .get(`/destination?address=${userDestination}`, {
-            headers: { Authorization: localStorage.getItem('token') }
-          })
-          .then(res => {
-            setForecast(res.data.forecast);
-            setLoading(false);
-          });
-      })
-      .catch(err => null);
+const getDestination = async () => {
+  await axios
+    .get(`users/me/destination`, {
+      headers: { Authorization: localStorage.getItem('token') }
+    })
+    .then(res => {
+      setDestination(res.data.destination);
+      const userDestination = res.data.destination;
+      axios
+        .get(`/destination?address=${userDestination}`, {
+          headers: { Authorization: localStorage.getItem('token') }
+        })
+        .then(res => {
+          setForecast(res.data.forecast);
+          setLoading(false);
+        });
+    })
+    .catch(err => null);
   };
 
   const updateDestination = async () => {
@@ -131,16 +130,14 @@ const Dashboard = (props) => {
     <div className="">
       {errorMessage}
       <div className="container_wrap">
-        <button onClick={logoutHandler} className="logout">
-          Log Out
-        </button>
+        <button onClick={logoutHandler} className="logout">Log Out</button>
         <Avatar
           upload={uploadHandler}
           submit={submitUploadHandler}
           avatar={avatar}
           username={user}
           isLoading={uploadIsLoading}
-          isUpload={isUpload} />
+          isUpload={isUpload}/>
         <Destination
           name={destination}
           handleOnSubmit={handleOnSubmit}
