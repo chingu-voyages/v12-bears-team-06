@@ -1,84 +1,77 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../utils/api';
+
 import Avatar from '../components/Avatar/Avatar';
 import Destination from '../components/Destination/Destination';
 import Weather from '../components/Weather/Weather';
 import Message from '../components/Message/Message';
 
-const initialDestinationState = {
-  name: '',
-  editing: false
-};
-
-const initialForecastState = {
-  data: [],
-  loading: true
-};
+const FORECAST = [];
 
 const Dashboard = (props) => {
-  const [destination, setDestination] = useState(initialDestinationState);
-  const [forecast, setForecast] = useState(initialForecastState);
-  const [file, setFile] = useState(null);
-  const [avatar, setAvatar] = useState(null);
-  const [uploadIsLoading, setUploadIsLoading] = useState(false);
-  const [isUpload, setIsUpload] = useState(false);
-  const [user, setUser] = useState(null);
-  const [isError, setIsError] = useState(false);
+const [destination, setDestination] = useState('');
+const [forecast, setForecast] = useState(FORECAST);
+const [file, setFile] = useState(null);
+const [avatar, setAvatar] = useState(null);
+const [uploadIsLoading, setUploadIsLoading] = useState(false);
+const [isUpload, setIsUpload] = useState(false);
+const [user, setUser] = useState(null);
+const [isError, setIsError] = useState(false);
+const [loading, setLoading] = useState(true);
 
-  let baseURL = "http://localhost:3001";
+useEffect(() => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+     props.history.push('/')
+  } else {
+    axios.get('/auth', {headers: {'Authorization': token}})
+    .then(res => setUser(res.data.user))
+    .catch(err => props.history.push('/'));
+  }
+  getAvatar();
+  getDestination();
+}, [props.history]);
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-       props.history.push('/')
-    } else {
-      axios.get('/auth', {headers: {'Authorization': token}})
-      .then(res => setUser(res.data.user))
-      .catch(err => props.history.push('/'));
-    }
-    getAvatar();
-
-    getAPI();
-  }, [props.history]);
-
-  const getAPI = async () => {
-    await axios
-      .get(`${baseURL}/destination?address=${destination.name}`)
-      //.get(`http://localhost:3001/user/me/destination`)
-      .then(res => res.data)
-      .then(data => {
-        setDestination(data.location);
-        setForecast(data.forecast);
-      })
-      .catch(error => {
-        if (error.response) {
-          console.log(error.response.status);
-        } else if (error.request) {
-          console.log("No Destination");
-        } else {
-          console.log("Error", error.message);
-        }
-      });
+const getDestination = async () => {
+  await axios
+    .get(`users/me/destination`, {
+      headers: { Authorization: localStorage.getItem('token') }
+    })
+    .then(res => {
+      setDestination(res.data.destination);
+      const userDestination = res.data.destination;
+      axios
+        .get(`/destination?address=${userDestination}`, {
+          headers: { Authorization: localStorage.getItem('token') }
+        })
+        .then(res => {
+          setForecast(res.data.forecast);
+          setLoading(false);
+        });
+    })
+    .catch(err => null);
   };
 
+  const updateDestination = async () => {
+    await axios
+    .get(`/destination?address=${destination}`, {
+      headers: { Authorization: localStorage.getItem('token') }
+    })
+    .then(res => {
+      setForecast(res.data.forecast);
+      setLoading(false);
+      })
+    .catch(err => setIsError(true));
+  };
 
   const handleChangeDestination = e => {
-    setDestination({
-      name: e.target.value,
-      editing: false
-    });
-    console.log("change destination");
+    setDestination(e.target.value);
   };
 
   const handleOnSubmit = e => {
     e.preventDefault();
-    console.log("update destination");
-    // axios
-    //   .post(`${baseURL}/users/me/destination`, { destination: destination.name })
-    //   .then(res => console.log(res))
-    //   .catch(error => console.log("error"));
-    setForecast({loading: true});
-    getAPI();
+    setLoading(true);
+    updateDestination();
   };
 
   const uploadHandler = (event) => {
@@ -146,12 +139,13 @@ const Dashboard = (props) => {
           isLoading={uploadIsLoading}
           isUpload={isUpload}/>
         <Destination
-          name={destination.name}
-          editing={destination.editing}
+          name={destination}
           handleOnSubmit={handleOnSubmit}
-          handleChangeDestination={handleChangeDestination}
-        />
-        <Weather forecast={forecast} />
+          handleChangeDestination={handleChangeDestination} />
+        <Weather
+          forecast={forecast}
+          loading={loading}
+          destination={destination} />
       </div>
     </div>
   );
