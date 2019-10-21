@@ -6,7 +6,7 @@ import BlankAvatar from '../../assets/images/avatar.jpg';
 const Avatar = (props) => {
 
   return (
-    <div className="avatar container container_weather">
+    <div className="avatar container container_avatar">
       {props.avatar ?
         <img src={`data:image/png;base64,${props.avatar}`} alt="User Avatar"/>
         : <img src={BlankAvatar} alt="Blank Avatar" />}

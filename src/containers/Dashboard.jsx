@@ -4,6 +4,7 @@ import axios from '../utils/api';
 import Avatar from '../components/Avatar/Avatar';
 import Destination from '../components/Destination/Destination';
 import Weather from '../components/Weather/Weather';
+import Dates from '../components/Dates/Dates';
 import Message from '../components/Message/Message';
 
 const FORECAST = [];
@@ -145,6 +146,7 @@ const Dashboard = (props) => {
           name={destination}
           handleOnSubmit={handleOnSubmit}
           handleChangeDestination={handleChangeDestination} />
+        <Dates/>
         <Weather
           forecast={forecast}
           loading={loading}
