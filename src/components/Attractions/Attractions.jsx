@@ -10,11 +10,11 @@ const Attractions = ({ attractions, loading, destination }) => {
     return attractions.map((item, index) => {
       return (
         <AttractionItem
-          key={item.id}
+          key={item.name}
           index={index + 1}
           name={item.name}
-          category={item.category}
-          tags={item.tags}
+          img={item.img}
+          url={item.url}
         />
       );
     });
@@ -23,23 +23,15 @@ const Attractions = ({ attractions, loading, destination }) => {
   let attraction_items = loading ? <Loading /> : destination ? <Loading /> : <p>You don't have Destination.</p>;
   
   if (destination && !loading && attractions) {
-    attraction_items = <ul className="attraction_items">{formatAttractions()}</ul>;
+    attraction_items = formatAttractions();
   };
 
   return (
     <div className="container container_attractions">
       <h2 className="">Attractions</h2>
-      <ul className="attraction_items">
-        <li className="attraction_item_head">
-          <p className="attraction_rank">Rank</p>
-          <div className="attraction_text">
-            <p className="attraction_name">Name</p>
-            <p className="attraction_cat">Category</p>
-            <p className="attraction_tag">Tags</p>
-          </div>
-        </li>
+      <ol className="attraction_items">
         {attraction_items}
-      </ul>
+      </ol>
     </div>
   );
 };

@@ -1,20 +1,16 @@
 import React from 'react';
 
-const AttractionItem = ({ index, name, category, tags }) => {
-  const tagItems = tags.map((tag, index) => {
-    return (
-      <li key={tag}>{tag}</li>
-    );
-  });
+const AttractionItem = ({ index, name, img, url }) => {
+  const imgUrl = {
+    backgroundImage: `url(${img})`
+  };
 
   return (
     <li className="attraction_item">
-      <p className="attraction_rank">{index}</p>
-      <div className="attraction_text">
+      <a href={url} target="_blank">
+        <div className="attraction_img" style={imgUrl}></div>
         <p className="attraction_name">{name}</p>
-        <p className="attraction_cat">{category}</p>
-        <ul className="attraction_tag">{tagItems}</ul>
-      </div>
+      </a>
     </li>
   );
 

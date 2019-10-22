@@ -7,15 +7,10 @@ import Weather from '../components/Weather/Weather';
 import Attractions from '../components/Attractions/Attractions';
 import Message from '../components/Message/Message';
 
-import { data } from '../components/Attractions/data';
-
-const FORECAST = [];
-const ATTRACTIONS = data;
-
 const Dashboard = (props) => {
   const [destination, setDestination] = useState('');
-  const [forecast, setForecast] = useState(FORECAST);
-  const [attractions, setAttractions] = useState(ATTRACTIONS);
+  const [forecast, setForecast] = useState([]);
+  const [attractions, setAttractions] = useState([]);
   const [file, setFile] = useState(null);
   const [avatar, setAvatar] = useState(null);
   const [uploadIsLoading, setUploadIsLoading] = useState(false);
@@ -50,7 +45,9 @@ const Dashboard = (props) => {
           headers: { Authorization: localStorage.getItem('token') }
         })
         .then(res => {
+          console.log(res.data.attractions);
           setForecast(res.data.forecast);
+          setAttractions(res.data.attractions);
           setLoading(false);
         });
     })
