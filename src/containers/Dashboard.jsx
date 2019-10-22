@@ -117,7 +117,10 @@ const Dashboard = (props) => {
 
   const getDate = () => {
     axios.get('/users/me/date', {headers: {'Authorization': localStorage.getItem('token')}})
-      .then(res => setDate(res.data.date))
+      .then(res => {
+        if(res.data.date !== undefined)
+        setDate(res.data.date)
+      })
       .catch(err => setDate(null));
   }
 
