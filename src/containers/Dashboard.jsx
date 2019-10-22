@@ -19,7 +19,7 @@ const Dashboard = (props) => {
   const [user, setUser] = useState(null);
   const [isError, setIsError] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [date, setDate] = useState(null)
+  const [dates, setDate] = useState(null)
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -104,19 +104,21 @@ const Dashboard = (props) => {
 
   const getAvatar = () => {
     axios.get('/users/me/avatar', {headers: {'Authorization': localStorage.getItem('token')}})
-      .then(res => setAvatar(res.data))
+      .then(res => setAvatar(res.data.date))
       .catch(err => setAvatar(null))
   }
 
   const submitDate = (date) => {
-    axios.post('/users/me/date', date, {headers: {'Authorization': localStorage.getItem('token')}})
-      .then(res => console.log(res))
+    const data = {date: date}
+    axios.post('/users/me/date', data, {headers: {'Authorization': localStorage.getItem('token')}})
+      .then(res => setDate(res.data.date))
+      .catch(err => setDate(null))
   }
 
   const getDate = () => {
     axios.get('/users/me/date', {headers: {'Authorization': localStorage.getItem('token')}})
-      .then(res => setDate(res.data))
-      .catch(err => setDate(null))
+      .then(res => setDate(res.data.date))
+      .catch(err => setDate(null));
   }
 
   const logoutHandler = () => {
@@ -159,8 +161,8 @@ const Dashboard = (props) => {
           handleOnSubmit={handleOnSubmit}
           handleChangeDestination={handleChangeDestination} />
         <Dates
-          submit={(date) => submitDate(date)}
-          date={date}/>
+          submit={submitDate}
+          date={dates}/>
         <Weather
           forecast={forecast}
           loading={loading}

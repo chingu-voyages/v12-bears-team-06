@@ -21,6 +21,11 @@ $color-date-range: #ed8a7e;
   border: 1px double $color-date;
 }
 
+.CalendarDay__selected_span:hover, .CalendarDay__selected_span:active {
+  background-color: $color-date;
+  border: 1px double $color-date;
+}
+
 .CalendarDay__selected_span {
   background: $color-date-range;
   border: 1px double $color-date;
@@ -36,6 +41,10 @@ $color-date-range: #ed8a7e;
 
 .DateRangePickerInput_arrow_svg {
   fill: black;
+}
+
+.DateRangePickerInput_arrow {
+  padding-left: 10px;
 }
 
 .DayPickerKeyboardShortcuts_show__bottomRight::before {
