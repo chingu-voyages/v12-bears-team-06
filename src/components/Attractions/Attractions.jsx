@@ -7,15 +7,13 @@ import './attractions.scss';
 
 const Attractions = ({ attractions, loading, destination }) => {
   const formatAttractions = () => {
-    return attractions.map((item, index) => {
+    return attractions.map(item => {
       return (
         <AttractionItem
           key={item.name}
-          index={index + 1}
           name={item.name}
           img={item.img}
-          url={item.url}
-        />
+          url={item.url} />
       );
     });
   };

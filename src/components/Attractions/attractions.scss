@@ -53,8 +53,12 @@ $ease: .4s ease-in-out;
         box-shadow: 0 0 16px 0 rgba(#000, .32);
       }
 
-      .attraction_name {
-        color: $color-attractions;
+      // .attraction_name {
+      //   color: $color-attractions;
+      // }
+
+      .externallink {
+        opacity: 1;
       }
     }
   }
@@ -76,6 +80,7 @@ $ease: .4s ease-in-out;
 }
 
 .attraction_img {
+  position: relative;
   display: block;
   width: 100%;
   height: 0;
@@ -87,6 +92,27 @@ $ease: .4s ease-in-out;
   border-radius: 4px;
   overflow: hidden;
   transition: $ease;
+
+  .externallink {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    background: rgba(#000, .2);
+    z-index: 9;
+    transition: $ease;
+
+    svg {
+      stroke: #fff;
+      font-size: 1.5em;
+    }
+  }
 }
 
 .attraction_name {
