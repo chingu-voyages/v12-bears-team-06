@@ -20,18 +20,16 @@ const Attractions = ({ attractions, loading, destination }) => {
     });
   };
 
-  let attraction_items = loading ? <Loading /> : destination ? <Loading /> : <p>You don't have Destination.</p>;
+  let attraction_items = loading ? <Loading /> : destination ? <Loading /> : <p className="msg_nodestination">You don't have Destination.</p>;
   
   if (destination && !loading && attractions) {
-    attraction_items = formatAttractions();
+    attraction_items = <ol className="attraction_items">{formatAttractions()}</ol>;
   };
 
   return (
     <div className="container container_attractions">
       <h2 className="">Attractions</h2>
-      <ol className="attraction_items">
         {attraction_items}
-      </ol>
     </div>
   );
 };

@@ -45,25 +45,26 @@ const Dashboard = (props) => {
           headers: { Authorization: localStorage.getItem('token') }
         })
         .then(res => {
-          console.log(res.data.attractions);
+          //console.log(res.data);
           setForecast(res.data.forecast);
           setAttractions(res.data.attractions);
           setLoading(false);
         });
     })
-    .catch(err => null);
+    .catch(err => setLoading(false));
   };
 
-  const updateDestination = async () => {
+  const updateDestination = async destination => {
     await axios
-    .get(`/destination?address=${destination}`, {
-      headers: { Authorization: localStorage.getItem('token') }
-    })
-    .then(res => {
-      setForecast(res.data.forecast);
-      setLoading(false);
+      .get(`/destination?address=${destination}`, {
+        headers: { Authorization: localStorage.getItem('token') }
       })
-    .catch(err => setIsError(true));
+      .then(res => {
+        setForecast(res.data.forecast);
+        setAttractions(res.data.attractions);
+        setLoading(false);
+      })
+      .catch(err => setIsError(true));
   };
 
   const handleChangeDestination = e => {
@@ -73,7 +74,8 @@ const Dashboard = (props) => {
   const handleOnSubmit = e => {
     e.preventDefault();
     setLoading(true);
-    updateDestination();
+    const userDestination = destination;
+    updateDestination(userDestination);
   };
 
   const uploadHandler = (event) => {
