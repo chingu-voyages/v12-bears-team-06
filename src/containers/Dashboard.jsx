@@ -5,13 +5,13 @@ import Avatar from '../components/Avatar/Avatar';
 import Destination from '../components/Destination/Destination';
 import Weather from '../components/Weather/Weather';
 import Dates from '../components/Dates/Dates';
+import Attractions from '../components/Attractions/Attractions';
 import Message from '../components/Message/Message';
-
-const FORECAST = [];
 
 const Dashboard = (props) => {
   const [destination, setDestination] = useState('');
-  const [forecast, setForecast] = useState(FORECAST);
+  const [forecast, setForecast] = useState([]);
+  const [attractions, setAttractions] = useState([]);
   const [file, setFile] = useState(null);
   const [avatar, setAvatar] = useState(null);
   const [uploadIsLoading, setUploadIsLoading] = useState(false);
@@ -24,7 +24,7 @@ const Dashboard = (props) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
-       props.history.push('/')
+      props.history.push('/')
     } else {
       axios.get('/auth', {headers: {'Authorization': token}})
       .then(res => setUser(res.data.user))
@@ -37,34 +37,37 @@ const Dashboard = (props) => {
 
   const getDestination = async () => {
     await axios
-      .get(`users/me/destination`, {
-        headers: { Authorization: localStorage.getItem('token') }
-      })
-      .then(res => {
-        setDestination(res.data.destination);
-        const userDestination = res.data.destination;
-        axios
-          .get(`/destination?address=${userDestination}`, {
-            headers: { Authorization: localStorage.getItem('token') }
-          })
-          .then(res => {
-            setForecast(res.data.forecast);
-            setLoading(false);
-          });
-      })
-      .catch(err => null);
-  };
-
-  const updateDestination = async () => {
-    await axios
-    .get(`/destination?address=${destination}`, {
+    .get(`users/me/destination`, {
       headers: { Authorization: localStorage.getItem('token') }
     })
     .then(res => {
-      setForecast(res.data.forecast);
-      setLoading(false);
+      setDestination(res.data.destination);
+      const userDestination = res.data.destination;
+      axios
+        .get(`/destination?address=${userDestination}`, {
+          headers: { Authorization: localStorage.getItem('token') }
+        })
+        .then(res => {
+          //console.log(res.data);
+          setForecast(res.data.forecast);
+          setAttractions(res.data.attractions);
+          setLoading(false);
+        });
+    })
+    .catch(err => setLoading(false));
+  };
+
+  const updateDestination = async destination => {
+    await axios
+      .get(`/destination?address=${destination}`, {
+        headers: { Authorization: localStorage.getItem('token') }
       })
-    .catch(err => setIsError(true));
+      .then(res => {
+        setForecast(res.data.forecast);
+        setAttractions(res.data.attractions);
+        setLoading(false);
+      })
+      .catch(err => setIsError(true));
   };
 
   const handleChangeDestination = e => {
@@ -74,7 +77,8 @@ const Dashboard = (props) => {
   const handleOnSubmit = e => {
     e.preventDefault();
     setLoading(true);
-    updateDestination();
+    const userDestination = destination;
+    updateDestination(userDestination);
   };
 
   const uploadHandler = (event) => {
@@ -159,7 +163,7 @@ const Dashboard = (props) => {
           avatar={avatar}
           username={user}
           isLoading={uploadIsLoading}
-          isUpload={isUpload} />
+          isUpload={isUpload}/>
         <Destination
           name={destination}
           handleOnSubmit={handleOnSubmit}
@@ -167,10 +171,15 @@ const Dashboard = (props) => {
         <Dates
           submit={submitDate}
           date={dates}/>
+          handleChangeDestination={handleChangeDestination}/>
         <Weather
           forecast={forecast}
           loading={loading}
           destination={destination} />
+        <Attractions 
+          loading={loading}
+          destination={destination}
+          attractions ={attractions} />
       </div>
     </div>
   );

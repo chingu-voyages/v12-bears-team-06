@@ -212,6 +212,10 @@ img {
 .container_date {
   h2 {
     color: $color-date;
+
+.container_attractions {
+  h2 {
+    color: $color-attractions;
   }
 }
 
@@ -225,6 +229,10 @@ img {
     width: 25.4%;
     min-width: 305px;
   }
+}
+
+.msg_nodestination {
+  color: #aaa;
 }
 
 nav {

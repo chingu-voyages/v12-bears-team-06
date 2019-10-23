@@ -23,5 +23,10 @@ $color-destination: #53CBA7;
     font-size: 1.4rem;
     font-family: inherit;
     letter-spacing: .02em;
+
+    &:hover {
+      background: darken($color-destination, 8);
+      cursor: pointer;
+    }
   }
 }
