@@ -72,7 +72,7 @@ const Home = (props) => {
     }
   };
 
-  const auth = (email, password, username, emailRegister, passwordRegister) => {
+  const auth = (target, email, password, username, emailRegister, passwordRegister) => {
     setIsLoading(true);
     setIsError(false);
     let url = '/users/login';
@@ -80,7 +80,7 @@ const Home = (props) => {
       email: email,
       password: password
     }
-    if (isNewUser) {
+    if (target === 'register') {
       url = '/users/register';
       data = {
         email: emailRegister,
@@ -117,7 +117,7 @@ const Home = (props) => {
     };
     if((email.isValid) || (emailRegister.isValid && passwordRegister.isValid && username.isValid)) {
       setIsValid(true);
-      auth(email.value, password.value, username.value, emailRegister.value, passwordRegister.value);
+      auth(event.target.id, email.value, password.value, username.value, emailRegister.value, passwordRegister.value);
     } else {
       setIsValid(false)
     }

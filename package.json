@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "react": "^16.10.2",
+    "react-dates": "^21.2.1",
     "react-dom": "^16.10.2",
     "react-icons": "^3.7.0",
     "react-router-dom": "^5.1.2",

@@ -1,11 +1,13 @@
 import React, {Suspense} from 'react';
 import {Route, Switch, Redirect} from 'react-router-dom';
+import 'react-dates/initialize';
+import 'react-dates/lib/css/_datepicker.css';
 import Home from './containers/Home';
 import Dashboard from './containers/Dashboard';
 import Loading from './components/Loading/Loading';
 import './style.scss';
 
-function App() { 
+function App() {
 
   return (
     <div className="app">

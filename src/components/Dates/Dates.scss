@@ -1,0 +1,52 @@
+$color-date: #F15946;
+$color-date-range: #ed8a7e;
+
+.icon {
+  height: 25px;
+  width: 25px;
+  vertical-align: unset;
+}
+
+#endDate, #startDate {
+  margin: 5px;
+  text-align: center;
+}
+
+.DateRangePickerInput__withBorder {
+  border: none;
+}
+
+.CalendarDay__selected, .CalendarDay__selected:active, .CalendarDay__selected:hover {
+  background-color: $color-date;
+  border: 1px double $color-date;
+}
+
+.CalendarDay__selected_span:hover, .CalendarDay__selected_span:active {
+  background-color: $color-date;
+  border: 1px double $color-date;
+}
+
+.CalendarDay__selected_span {
+  background: $color-date-range;
+  border: 1px double $color-date;
+}
+
+.DateInput_input__focused {
+  border-bottom: 2px solid $color-date;
+}
+
+.DateInput_input {
+  color: black;
+}
+
+.DateRangePickerInput_arrow_svg {
+  fill: black;
+}
+
+.DateRangePickerInput_arrow {
+  padding-left: 10px;
+}
+
+.DayPickerKeyboardShortcuts_show__bottomRight::before {
+  border-right: 33px solid $color-date;
+}
