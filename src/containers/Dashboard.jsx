@@ -4,36 +4,36 @@ import axios from '../utils/api';
 import Avatar from '../components/Avatar/Avatar';
 import Destination from '../components/Destination/Destination';
 import Weather from '../components/Weather/Weather';
+import Attractions from '../components/Attractions/Attractions';
 import Message from '../components/Message/Message';
 
-const FORECAST = [];
-
 const Dashboard = (props) => {
-const [destination, setDestination] = useState('');
-const [forecast, setForecast] = useState(FORECAST);
-const [file, setFile] = useState(null);
-const [avatar, setAvatar] = useState(null);
-const [uploadIsLoading, setUploadIsLoading] = useState(false);
-const [isUpload, setIsUpload] = useState(false);
-const [user, setUser] = useState(null);
-const [isError, setIsError] = useState(false);
-const [loading, setLoading] = useState(true);
+  const [destination, setDestination] = useState('');
+  const [forecast, setForecast] = useState([]);
+  const [attractions, setAttractions] = useState([]);
+  const [file, setFile] = useState(null);
+  const [avatar, setAvatar] = useState(null);
+  const [uploadIsLoading, setUploadIsLoading] = useState(false);
+  const [isUpload, setIsUpload] = useState(false);
+  const [user, setUser] = useState(null);
+  const [isError, setIsError] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-useEffect(() => {
-  const token = localStorage.getItem('token');
-  if (!token) {
-     props.history.push('/')
-  } else {
-    axios.get('/auth', {headers: {'Authorization': token}})
-    .then(res => setUser(res.data.user))
-    .catch(err => props.history.push('/'));
-  }
-  getAvatar();
-  getDestination();
-}, [props.history]);
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      props.history.push('/')
+    } else {
+      axios.get('/auth', {headers: {'Authorization': token}})
+      .then(res => setUser(res.data.user))
+      .catch(err => props.history.push('/'));
+    }
+    getAvatar();
+    getDestination();
+  }, [props.history]);
 
-const getDestination = async () => {
-  await axios
+  const getDestination = async () => {
+    await axios
     .get(`users/me/destination`, {
       headers: { Authorization: localStorage.getItem('token') }
     })
@@ -45,23 +45,26 @@ const getDestination = async () => {
           headers: { Authorization: localStorage.getItem('token') }
         })
         .then(res => {
+          //console.log(res.data);
           setForecast(res.data.forecast);
+          setAttractions(res.data.attractions);
           setLoading(false);
         });
     })
-    .catch(err => null);
+    .catch(err => setLoading(false));
   };
 
-  const updateDestination = async () => {
+  const updateDestination = async destination => {
     await axios
-    .get(`/destination?address=${destination}`, {
-      headers: { Authorization: localStorage.getItem('token') }
-    })
-    .then(res => {
-      setForecast(res.data.forecast);
-      setLoading(false);
+      .get(`/destination?address=${destination}`, {
+        headers: { Authorization: localStorage.getItem('token') }
       })
-    .catch(err => setIsError(true));
+      .then(res => {
+        setForecast(res.data.forecast);
+        setAttractions(res.data.attractions);
+        setLoading(false);
+      })
+      .catch(err => setIsError(true));
   };
 
   const handleChangeDestination = e => {
@@ -71,7 +74,8 @@ const getDestination = async () => {
   const handleOnSubmit = e => {
     e.preventDefault();
     setLoading(true);
-    updateDestination();
+    const userDestination = destination;
+    updateDestination(userDestination);
   };
 
   const uploadHandler = (event) => {
@@ -130,7 +134,9 @@ const getDestination = async () => {
     <div className="">
       {errorMessage}
       <div className="container_wrap">
-        <button onClick={logoutHandler} className="logout">Log Out</button>
+        <button onClick={logoutHandler} className="logout">
+          Log Out
+        </button>
         <Avatar
           upload={uploadHandler}
           submit={submitUploadHandler}
@@ -141,11 +147,15 @@ const getDestination = async () => {
         <Destination
           name={destination}
           handleOnSubmit={handleOnSubmit}
-          handleChangeDestination={handleChangeDestination} />
+          handleChangeDestination={handleChangeDestination}/>
         <Weather
           forecast={forecast}
           loading={loading}
           destination={destination} />
+        <Attractions 
+          loading={loading}
+          destination={destination}
+          attractions ={attractions} />
       </div>
     </div>
   );

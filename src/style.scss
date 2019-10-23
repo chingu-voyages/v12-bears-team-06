@@ -209,6 +209,12 @@ img {
   }
 }
 
+.container_attractions {
+  h2 {
+    color: $color-attractions;
+  }
+}
+
 .container_weather {
 
   h2 {
@@ -219,6 +225,10 @@ img {
     width: 25.4%;
     min-width: 305px;
   }
+}
+
+.msg_nodestination {
+  color: #aaa;
 }
 
 nav {

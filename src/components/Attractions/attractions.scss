@@ -1,0 +1,125 @@
+$color-attractions: #53B3CB;
+
+$row-mobile: 2;
+$row-desktop: 5;
+
+$margin-mobile: 24px;
+$margin-desktop: 32px;
+
+$ease: .4s ease-in-out;
+
+.attraction_items {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 -#{$margin-mobile} -#{$margin-mobile};
+  counter-reset: rank-counter;
+
+  @media screen and (min-width: 900px) {
+  }
+}
+
+
+.attraction_item {
+  position: relative;
+  width: calc((100% - (#{$row-mobile} * #{$margin-mobile})) / #{$row-mobile});
+  margin: 0 0 $margin-mobile $margin-mobile;
+
+  &:before {
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    content: counter(rank-counter);
+    counter-increment: rank-counter;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    color: #fff;
+    background: $color-attractions;
+    border-radius: 50%;
+    font-family: inherit;
+    text-align: center;
+    line-height: 24px;
+    z-index: 10;
+  }
+
+  a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    transition: $ease;
+
+    &:hover {
+      .attraction_img {
+        box-shadow: 0 0 16px 0 rgba(#000, .32);
+      }
+
+      // .attraction_name {
+      //   color: $color-attractions;
+      // }
+
+      .externallink {
+        opacity: 1;
+      }
+    }
+  }
+
+  @media screen and (min-width: 600px) {
+    width: calc((100% - (#{$row-desktop} * #{$margin-desktop})) / #{$row-desktop});
+  }
+}
+
+.attraction_rank {
+  margin-right: 2.4rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+
+  @media screen and (min-width: 900px) {
+    width: 7%;
+    text-align: center;
+  }
+}
+
+.attraction_img {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 0;
+  margin: 0 0 8px;
+  padding-top: 100%;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: $ease;
+
+  .externallink {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    background: rgba(#000, .2);
+    z-index: 9;
+    transition: $ease;
+
+    svg {
+      stroke: #fff;
+      font-size: 1.5em;
+    }
+  }
+}
+
+.attraction_name {
+  padding: 0 .8rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  transition: $ease;
+}
