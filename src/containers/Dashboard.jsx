@@ -108,7 +108,7 @@ const Dashboard = (props) => {
 
   const getAvatar = () => {
     axios.get('/users/me/avatar', {headers: {'Authorization': localStorage.getItem('token')}})
-      .then(res => setAvatar(res.data.date))
+      .then(res => setAvatar(res.data))
       .catch(err => setAvatar(null))
   }
 
@@ -144,7 +144,7 @@ const Dashboard = (props) => {
 
   let errorMessage = null;
   if (isError) {
-    errorMessage = <Message error={isError}/>
+    errorMessage = <Message error={isError} isUpload={isUpload}/>
       setTimeout(() => {
         setIsError(false);
       }, 1000);
