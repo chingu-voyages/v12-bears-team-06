@@ -1,0 +1,90 @@
+$color-todos: #f9c22e;
+$ease: .25s ease;
+
+.attraction_items {
+  display: flex;
+  flex-wrap: wrap;
+  counter-reset: rank-counter;
+
+  @media screen and (min-width: 900px) {
+  }
+}
+
+.todo_form {
+  margin: 32px 0 0;
+}
+
+[type="text"] {
+  width: 100%;
+  border-bottom: 2px solid #ccc;
+}
+
+.btn_delete {
+  margin-left: 8px;
+  cursor: pointer;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    margin-top: -3px;
+    stroke: #ccc; 
+    transition: $ease;
+    vertical-align: middle;
+  }
+
+  &:hover svg {
+    stroke: #F15946;
+  }
+}
+
+.todo_item {
+  cursor: pointer;
+  margin: 0 0 8px;
+
+  [type="checkbox"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+
+    & + label {
+      position: relative;
+      display: inline-block;
+      padding-left: 24px;
+      cursor: pointer;
+
+      &:before {
+        position: absolute;
+        top: calc(50% - 8px);
+        left: 0;
+        content: '';
+        display: block;
+        width: 16px;
+        height: 16px;
+        background: #fef6e0;
+        border-radius: 4px;
+      }
+    }
+
+    &:checked + label {
+      color: #ccc;
+    }
+
+    &:checked + label:after {
+      position: absolute;
+      top: calc(50% - 8px);
+      left: 5px;
+      content: '';
+      display: block;
+      width: 7px;
+      height: 14px;
+      transform: rotate(40deg);
+      border-bottom: 3px solid $color-todos;
+      border-right: 3px solid $color-todos;
+    }
+  }
+}

@@ -1,0 +1,567 @@
+/*
+* Reset
+* ================================== */
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap");
+/*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
+html {
+  line-height: 1.15;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+article, aside, footer, header, nav, section {
+  display: block;
+}
+
+h1 {
+  font-size: 2em;
+  margin: .67em 0;
+}
+
+figcaption, figure, main {
+  display: block;
+}
+
+figure {
+  margin: 1em 40px;
+}
+
+hr {
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+}
+
+pre {
+  font-family: monospace,monospace;
+  font-size: 1em;
+}
+
+a {
+  background-color: transparent;
+  -webkit-text-decoration-skip: objects;
+}
+
+abbr[title] {
+  border-bottom: 0;
+  text-decoration: underline;
+  text-decoration: underline dotted;
+}
+
+b, strong {
+  font-weight: inherit;
+}
+
+b, strong {
+  font-weight: bolder;
+}
+
+code, kbd, samp {
+  font-family: monospace,monospace;
+  font-size: 1em;
+}
+
+dfn {
+  font-style: italic;
+}
+
+mark {
+  background-color: #ff0;
+  color: #000;
+}
+
+small {
+  font-size: 80%;
+}
+
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+audio, video {
+  display: inline-block;
+}
+
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+img {
+  border-style: none;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+button, input, optgroup, select, textarea {
+  font-family: sans-serif;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+
+button, input {
+  overflow: visible;
+}
+
+button, select {
+  text-transform: none;
+}
+
+button, html [type="button"], [type="reset"], [type="submit"] {
+  -webkit-appearance: button;
+}
+
+button::-moz-focus-inner, [type="button"]::-moz-focus-inner, [type="reset"]::-moz-focus-inner, [type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+button:-moz-focusring, [type="button"]:-moz-focusring, [type="reset"]:-moz-focusring, [type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+fieldset {
+  padding: .35em .75em .625em;
+}
+
+legend {
+  box-sizing: border-box;
+  color: inherit;
+  display: table;
+  max-width: 100%;
+  padding: 0;
+  white-space: normal;
+}
+
+progress {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+textarea {
+  overflow: auto;
+}
+
+[type="checkbox"], [type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+[type="number"]::-webkit-inner-spin-button, [type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+[type="search"] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+
+[type="search"]::-webkit-search-cancel-button, [type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit;
+}
+
+details, menu {
+  display: block;
+}
+
+summary {
+  display: list-item;
+}
+
+canvas {
+  display: inline-block;
+}
+
+template {
+  display: none;
+}
+
+[hidden] {
+  display: none;
+}
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote :before,
+blockquote :after,
+q :before,
+q :after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  empty-cells: show;
+}
+
+*,
+:before,
+:after {
+  border: 0;
+  outline: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  width: 100%;
+  height: 100%;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #222;
+  background: #fff;
+  font: 400 1.4rem/1.8 "Roboto", arial, sans-serif;
+  -moz-font-feature-settings: 'palt' 1;
+  font-feature-settings: 'palt' 1;
+}
+
+:active,
+:focus {
+  outline: none;
+}
+
+img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  line-height: 0;
+  vertical-align: bottom;
+}
+
+/*
+* Layout
+* ================================== */
+.app {
+  padding: 2.4rem 5%;
+}
+
+@media screen and (min-width: 1280px) {
+  .app {
+    padding: 2.4rem calc((100% - 1200px) / 2);
+  }
+}
+
+/*
+* Header
+* ================================== */
+/*
+* Footer
+* ================================== */
+/*
+* Form
+* ================================== */
+[type="text"] {
+  width: 100%;
+  margin: 0 1rem 1rem 0;
+  padding: .6rem;
+  background: none;
+  border-radius: 2px;
+  font-size: 1.6rem;
+  font-family: inherit;
+}
+
+/*
+* Components
+* ================================== */
+.container {
+  padding: 2.4rem;
+  border-radius: 8px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.14);
+}
+
+.container h2 {
+  margin: 0 0 10px;
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: .05em;
+}
+
+@media screen and (min-width: 900px) {
+  .container {
+    padding: 3.2rem 4rem;
+  }
+  .container h2 {
+    margin: 0 0 16px;
+    font-size: 1.6rem;
+  }
+}
+
+.container_destination h2 {
+  color: #53CBA7;
+}
+
+.container_date h2 {
+  color: #F15946;
+}
+
+.container_attractions h2 {
+  color: #53B3CB;
+}
+
+.container_todos h2 {
+  color: #F9C22E;
+}
+
+.container_weather h2 {
+  color: #C55BEC;
+}
+
+@media screen and (min-width: 900px) {
+  .container_weather {
+    width: 25.4%;
+    min-width: 305px;
+  }
+}
+
+.msg_nodestination {
+  color: #aaa;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+nav ul li {
+  cursor: pointer;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #222;
+}
+
+.logout, .plan {
+  background-color: #fa9873;
+  border-radius: 3px;
+  padding: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+.logout {
+  position: relative;
+  margin-left: auto;
+  display: block;
+}
+
+.plan a {
+  color: white;
+  text-decoration: none;
+}
+
+.AuthModal {
+  position: fixed;
+  z-index: 500;
+  background-color: white;
+  min-width: 40%;
+  border: 1px solid #ccc;
+  box-shadow: 0px 0px 10px 4px rgba(185, 169, 156, 0.41);
+  padding: 40px;
+  left: 25%;
+  top: 20%;
+  box-sizing: border-box;
+  transition: all 0.3s ease-out;
+  height: auto;
+  text-align: center;
+  border-radius: 3px;
+}
+
+.AuthModal .form {
+  display: flex;
+  flex-direction: row;
+}
+
+@media screen and (max-width: 768px) {
+  .AuthModal .form {
+    flex-direction: column;
+  }
+}
+
+.AuthModal .form h2 {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin: 0px auto 20px;
+  color: #222;
+  text-align: left;
+}
+
+.AuthModal .form input {
+  display: block;
+  margin: auto;
+  margin-bottom: 20px;
+  border-radius: 3px;
+  border: 1px solid #b3b3b3;
+  font-size: 1.4rem;
+  font-weight: 400;
+  padding: 10px;
+  width: 220px;
+  background-color: #f5f5f5;
+  height: 50px;
+}
+
+.AuthModal .form button {
+  border-radius: 4px;
+  border: none;
+  display: inline-block;
+  cursor: pointer;
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 400;
+  padding: 8px 16px;
+  text-decoration: none;
+  width: 220px;
+  margin-bottom: 20px;
+  height: 50px;
+}
+
+.AuthModal .form .first {
+  background-color: #fa9873;
+}
+
+.AuthModal .form .second {
+  background-color: #82DCE9;
+}
+
+.AuthModal .form button .looping-rhombuses-spinner {
+  margin: 10px auto;
+}
+
+.AuthModal .form button .looping-rhombuses-spinner .rhombus {
+  background-color: white;
+}
+
+.AuthModal .form .line {
+  min-height: 200px;
+  border-left: 2px solid #f5f5f5;
+  margin: 40px;
+}
+
+@media screen and (max-width: 768px) {
+  .AuthModal .form .line {
+    display: none;
+  }
+}
+
+.AuthModal .form .message {
+  max-width: 220px;
+  color: #fa9873;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.LogoutMessage {
+  margin: auto;
+  display: block;
+  text-align: center;
+  color: #fa9873;
+  z-index: 150;
+  position: absolute;
+  width: 40%;
+  left: 25%;
+  background-color: white;
+  padding: 5px 0;
+  border-radius: 3px;
+  border: 1px solid #f5f5f5;
+}
+
+.avatar {
+  width: 250px;
+  height: 250px;
+}
+
+.avatar img {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
+
+.avatar button {
+  background-color: #fa9873;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.avatar .inputFile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+  cursor: pointer;
+}
+
+.avatar label {
+  cursor: pointer;
+}
+
+.avatar .looping-rhombuses-spinner {
+  margin: 0;
+  padding-top: 5px;
+}
+
+.avatar .looping-rhombuses-spinner .rhombus {
+  background-color: white;
+  height: 5px;
+  width: 5px;
+}

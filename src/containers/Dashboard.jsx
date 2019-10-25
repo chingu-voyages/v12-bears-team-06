@@ -7,10 +7,14 @@ import Weather from '../components/Weather/Weather';
 import Dates from '../components/Dates/Dates';
 import Attractions from '../components/Attractions/Attractions';
 import Message from '../components/Message/Message';
+import Todos from '../components/Todos/Todos';
+
+import tododata from '../components/Todos/tododata';
 
 const Dashboard = (props) => {
   const [destination, setDestination] = useState('');
   const [forecast, setForecast] = useState([]);
+  const [todos, setTodos] = useState([]);
   const [attractions, setAttractions] = useState([]);
   const [file, setFile] = useState(null);
   const [avatar, setAvatar] = useState(null);
@@ -19,7 +23,7 @@ const Dashboard = (props) => {
   const [user, setUser] = useState(null);
   const [isError, setIsError] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [dates, setDate] = useState(null)
+  const [dates, setDate] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -33,6 +37,7 @@ const Dashboard = (props) => {
     getAvatar();
     getDate();
     getDestination();
+    getTodos();
   }, [props.history]);
 
   const getDestination = async () => {
@@ -150,6 +155,47 @@ const Dashboard = (props) => {
       }, 1000);
   }
 
+  const getTodos = () => {
+    setTodos(tododata);
+    // axios.get('/todolist', {headers: {'Authorization': localStorage.getItem('token')}})
+    //   .then(res => {
+    //     console.log(res);
+    //     if(res.data !== undefined) {
+    //       setTodos(res.data);
+    //     }
+    //   })
+    //   .catch(err => setTodos(null));
+  }
+
+  const addTodo = (todo) => {
+    console.log('[add todo]', todo);
+    getTodos();
+    // axios.post('/todolist/add', {headers: {'Authorization': localStorage.getItem('token')}})
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => setTodos(null));
+  }
+
+  const updateTodo = (id) => {
+    console.log('[update todo]', id);
+    getTodos();
+    // axios.put('/todolist/${id}', {headers: {'Authorization': localStorage.getItem('token')}})
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => setTodos(null));
+  }
+  const deleteTodo = (id) => {
+    console.log('[delete todo]', id);
+    getTodos();
+    // axios.put('/todolist/${id}', {headers: {'Authorization': localStorage.getItem('token')}})
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => setTodos(null));
+  }
+
   return (
     <div className="">
       {errorMessage}
@@ -170,7 +216,13 @@ const Dashboard = (props) => {
           handleChangeDestination={handleChangeDestination} />
         <Dates
           submit={submitDate}
-          date={dates}/>
+          date={dates} />
+        <Todos
+          todos={todos}
+          addTodo={addTodo}
+          updateTodo={updateTodo}
+          deleteTodo={deleteTodo}
+          loading={loading} />
         <Weather
           forecast={forecast}
           loading={loading}
