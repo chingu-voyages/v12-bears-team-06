@@ -1,15 +1,17 @@
 import React from 'react';
 import Backdrop from '../UI/Backdrop/Backdrop';
 
-const LogoutMessage = (props) => {
+const Message = (props) => {
   return (
     <React.Fragment>
       <Backdrop show={true} clicked={props.hide}/>
       <p className="LogoutMessage">
-        {props.error ? 'Something went wrong. Please try again.' : 'You have been successfully logged out.'}
+        {props.error && !props.isUpload ? 'Something went wrong. Please try again.'
+          : props.error && props.isUpload ? 'Something went wrong. Please try again. Maximum file size 2.5 MB'
+          : 'You have been successfully logged out.'}
       </p>
     </React.Fragment>
   )
 }
 
-export default LogoutMessage;
+export default Message;

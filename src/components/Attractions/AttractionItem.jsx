@@ -8,7 +8,7 @@ const AttractionItem = ({ name, img, url }) => {
 
   return (
     <li className="attraction_item">
-      <a href={url} target="_blank">
+      <a href={url} target="_blank" rel="noopener noreferrer">
         <div className="attraction_img" style={imgUrl}>
           <span className="externallink">
             <FiExternalLink />

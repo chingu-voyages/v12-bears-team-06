@@ -144,7 +144,7 @@ const Dashboard = (props) => {
 
   let errorMessage = null;
   if (isError) {
-    errorMessage = <Message error={isError}/>
+    errorMessage = <Message error={isError} isUpload={isUpload}/>
       setTimeout(() => {
         setIsError(false);
       }, 1000);
