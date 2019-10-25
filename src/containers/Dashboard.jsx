@@ -124,7 +124,7 @@ const Dashboard = (props) => {
       .then(res => {
         if(res.data.date !== undefined){
           setDate(res.data.date)
-        }  
+        }
       })
       .catch(err => setDate(null));
   }
@@ -171,12 +171,11 @@ const Dashboard = (props) => {
         <Dates
           submit={submitDate}
           date={dates}/>
-          handleChangeDestination={handleChangeDestination}/>
         <Weather
           forecast={forecast}
           loading={loading}
           destination={destination} />
-        <Attractions 
+        <Attractions
           loading={loading}
           destination={destination}
           attractions ={attractions} />
