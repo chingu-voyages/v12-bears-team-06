@@ -9,7 +9,7 @@ const Destination = ({ name, handleOnSubmit, handleChangeDestination }) => {
       <form className="form_destination" onSubmit={handleOnSubmit}>
         <input
           type="text"
-          value={name}
+          value={name === 'undefined' ? '' : name}
           placeholder="Type your destination ..."
           onChange={handleChangeDestination}
         />
