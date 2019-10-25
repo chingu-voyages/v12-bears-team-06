@@ -108,7 +108,7 @@ const Dashboard = (props) => {
 
   const getAvatar = () => {
     axios.get('/users/me/avatar', {headers: {'Authorization': localStorage.getItem('token')}})
-      .then(res => setAvatar(res.data.date))
+      .then(res => setAvatar(res.data))
       .catch(err => setAvatar(null))
   }
 
