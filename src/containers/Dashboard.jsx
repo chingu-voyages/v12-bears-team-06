@@ -40,19 +40,24 @@ const Dashboard = (props) => {
     .get(`users/me/destination`, {
       headers: { Authorization: localStorage.getItem('token') }
     })
-    .then(res => {
-      setDestination(res.data.destination);
-      const userDestination = res.data.destination;
-      axios
-        .get(`/destination?address=${userDestination}`, {
-          headers: { Authorization: localStorage.getItem('token') }
-        })
-        .then(res => {
-          //console.log(res.data);
-          setForecast(res.data.forecast);
-          setAttractions(res.data.attractions);
+      .then(res => {
+        if (res.data.destination === 'undefined' || '') {
+          console.log(res.data.destination);
+          setDestination('');
           setLoading(false);
-        });
+        } else {
+          setDestination(res.data.destination);
+          const userDestination = res.data.destination;
+          axios
+          .get(`/destination?address=${userDestination}`, {
+            headers: { Authorization: localStorage.getItem('token') }
+          })
+          .then(res => {
+            setForecast(res.data.forecast);
+            setAttractions(res.data.attractions);
+            setLoading(false);
+          });
+        }
     })
     .catch(err => setLoading(false));
   };
