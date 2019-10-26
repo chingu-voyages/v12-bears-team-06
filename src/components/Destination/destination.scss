@@ -1,13 +1,12 @@
 $color-destination: #53CBA7;
 
-
-
 .form_destination {
   [type="text"] {
+    width: 90%;
+    display: inline-block;
     &:focus {
       box-shadow: 0 0 4px 0 rgba($color-destination, .6);
     }
-
     &:disabled {
       box-shadow: none;
     }
