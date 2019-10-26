@@ -11,11 +11,9 @@ $ease: .4s ease-in-out;
 .attraction_items {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
   margin: 0 0 -#{$margin-mobile} -#{$margin-mobile};
   counter-reset: rank-counter;
-
-  @media screen and (min-width: 900px) {
-  }
 }
 
 
@@ -53,10 +51,6 @@ $ease: .4s ease-in-out;
         box-shadow: 0 0 16px 0 rgba(#000, .32);
       }
 
-      // .attraction_name {
-      //   color: $color-attractions;
-      // }
-
       .externallink {
         opacity: 1;
       }
@@ -65,6 +59,7 @@ $ease: .4s ease-in-out;
 
   @media screen and (min-width: 600px) {
     width: calc((100% - (#{$row-desktop} * #{$margin-desktop})) / #{$row-desktop});
+    margin: 0 0 $margin-desktop $margin-desktop;
   }
 }
 
