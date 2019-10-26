@@ -89,7 +89,6 @@ const Dashboard = (props) => {
   const deleteDestinationHandler = () => {
     axios.delete('/users/me/destination', {headers: {'Authorization': localStorage.getItem('token')}})
       .then(res =>  {
-        getDestination();
         setDate(null);
         setDestination('');
       })
