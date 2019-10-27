@@ -22,6 +22,7 @@ const Dashboard = (props) => {
   const [dates, setDate] = useState(null)
 
   useEffect(() => {
+    document.body.removeAttribute('style', 'overflow: hidden;');
     const token = localStorage.getItem('token');
     if (!token) {
       props.history.push('/')
@@ -156,7 +157,7 @@ const Dashboard = (props) => {
   }
 
   return (
-    <div className="">
+    <div className="app">
       {errorMessage}
       <div className="container_wrap">
         <button onClick={logoutHandler} className="logout">

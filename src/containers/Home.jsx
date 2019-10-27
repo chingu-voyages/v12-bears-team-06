@@ -2,9 +2,17 @@ import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import axios from '../utils/api';
 import {checkValidity, updateObject} from '../utils/utility';
-import Nav from '../components/Nav/Nav';
+import Footer from '../components/Footer/Footer';
+import Header from '../components/Header/Header';
+import SideDrawer from '../components/SideDrawer/SideDrawer';
 import Auth from '../components/Auth/Auth';
 import Message from '../components/Message/Message';
+
+import index01 from '../assets/images/index_01.png';
+import img_rusia from '../assets/images/destination_rusia.jpg';
+import img_santorini from '../assets/images/destination_santorini.jpg';
+import img_turkey from '../assets/images/destination_turkey.jpg';
+import img_venice from '../assets/images/destination_venice.jpg';
 
 const Home = (props) => {
 
@@ -102,11 +110,6 @@ const Home = (props) => {
       });
   };
 
-  useEffect(() => {
-    checkAuthState()
-  }, []);
-
-
   const submitHandler = (event) => {
     event.preventDefault();
     if (event.target.id === 'register') {
@@ -187,6 +190,14 @@ const Home = (props) => {
     setUsername(updatedEmailRegister);
   }
 
+  useEffect(() => {
+    if (isVisible) {
+      document.body.setAttribute('style', 'overflow: hidden;');
+    } else {
+      document.body.removeAttribute('style', 'overflow: hidden;');
+    }
+  }, [isVisible]); 
+
   let logoutMessage = null;
   if (props.history.action === 'PUSH') {
     logoutMessage = <Message/>
@@ -203,10 +214,27 @@ const Home = (props) => {
     button = <button className="plan"><Link to="/board">Plan your trip</Link></button>
   }
 
+  const [showSideDrawer, setShowSideDrawer] = useState(false);
+  const sideDrawerClosedHandler = () => {
+    setShowSideDrawer(false);
+  };
+  
+  const sideDrawerToggleHandler = () => {
+    setShowSideDrawer((prevState) => {
+      return !prevState.showSideDrawer
+    });
+  };
+
+  const popular = [
+    { name: 'rusia', img: img_rusia },
+    { name: 'santorini', img: img_santorini },
+    { name: 'venice', img: img_venice },
+    { name: 'turkey', img: img_turkey },
+  ];
+
   return (
-    <React.Fragment>
+    <div className="index">
       {logoutMessage}
-      <Nav auth={openModalHandler} authenticated={isAuth}/>
       <Auth
         isVisible={isVisible}
         isValid={isValid}
@@ -226,8 +254,53 @@ const Home = (props) => {
         passwordRegister={passwordRegister.value}
         isNewUser={isNewUser}
         />
-      {button}
-    </React.Fragment>
+      <Header
+        auth={openModalHandler}
+        authenticated={isAuth}
+        showSideDrawer={showSideDrawer} 
+        sideDrawerToggleHandler={sideDrawerToggleHandler} />
+      {!isVisible && (
+        <SideDrawer
+          auth={openModalHandler}
+          authenticated={isAuth}
+          showSideDrawer={showSideDrawer}
+          sideDrawerClosedHandler={sideDrawerClosedHandler} />
+      )}
+      <section className="main">
+        <section className="hero">
+          <div>
+            <h2>'TRAVEL PLANNING MADE EASY'</h2>
+          <p>all your travel planning in one place</p>
+          {button}
+          </div>
+        </section>
+        <section className="intro">
+          <div className="intro_text">
+            <h2>EXPLORE A DIFFERENT<br />WAY TO TRAVEL</h2>
+            <p>Lorem ipsum dolor sit amet,<br />
+              consectetur tempor incididuntut<br />
+              labore et dolore magna aliqua.<br />
+              taliquip ex ea commodo consequat.<br />
+              Duis aute irure dolor in reprehenderit<br />
+              in voluptate velit esse cillum dolore.</p>
+              {button}
+          </div>
+          <div className="intro_img"><img src={index01} alt="" /></div>
+        </section>
+        <section className="popular">
+          <h2>Popular Destination</h2>
+          <ul>
+            {popular.map(item => (
+              <li key={item.name}>
+                <img src={item.img} alt={item.name} />
+                <p><span>{item.name}</span></p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </section>
+      <Footer auth={openModalHandler} authenticated={isAuth} />
+    </div>
   )
 }
 
