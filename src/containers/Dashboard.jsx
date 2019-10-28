@@ -144,7 +144,7 @@ const Dashboard = (props) => {
     axios.post('/users/logout', bodyParameters, config)
       .then(res => {
         localStorage.removeItem('token');
-        props.history.push('/');
+        props.history.replace('/');
       }).catch(err => setIsError(true));
   }
 

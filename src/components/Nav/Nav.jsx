@@ -10,7 +10,7 @@ const Nav = (props) => {
     </li>
   )
   if(!props.authenticated) {
-    planLink = ( 
+    planLink = (
       <li onClick={props.auth}>Log in</li>
     )
   }

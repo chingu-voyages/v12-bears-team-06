@@ -200,10 +200,10 @@ const Home = (props) => {
     } else {
       document.body.removeAttribute('style', 'overflow: hidden;');
     }
-  }, [isVisible]); 
+  }, [isVisible]);
 
   let logoutMessage = null;
-  if (props.history.action === 'PUSH') {
+  if (props.history.action === 'REPLACE') {
     logoutMessage = <Message/>
       setTimeout(() => {
         setIsLogoutMessage(false);
@@ -227,7 +227,7 @@ const Home = (props) => {
   const sideDrawerClosedHandler = () => {
     setShowSideDrawer(false);
   };
-  
+
   const sideDrawerToggleHandler = () => {
     setShowSideDrawer((prevState) => {
       return !prevState.showSideDrawer
@@ -279,7 +279,7 @@ const Home = (props) => {
       <section className="main">
         <section className="hero">
           <div>
-            <h2>'TRAVEL PLANNING MADE EASY'</h2>
+            <h2>TRAVEL PLANNING MADE EASY</h2>
           <p>all your travel planning in one place</p>
           {buttonMain}
           </div>
