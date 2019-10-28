@@ -4,7 +4,7 @@
 
 // Colors
 $font-color: #222;
-$background: #fff;
+$background: #FAFAFC;
 
 $primary-color: #fa9873;
 $secondary-color: #82DCE9;
@@ -134,7 +134,7 @@ img {
 .app {
   padding: 2.4rem 5%;
 
-  @media screen and (min-width: 1280px) {
+  @media screen and (min-width: 1240px) {
     padding: 2.4rem calc((100% - 1200px) / 2);
   }
 }
@@ -146,7 +146,18 @@ img {
 /*
 * Header
 * ================================== */
+.header {
+  padding: 2.4rem 0 3.2rem;
+  display: flex;
+  align-items: center;
+}
 
+.app_title {
+  font-size: 1.8rem;
+  color: $primary-color;
+  font-weight: 600;
+  letter-spacing: .05em;
+}
 
 
 
@@ -174,25 +185,53 @@ img {
   font-family: inherit;
 }
 
+button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: 0;
+  background: none;
+  padding: 5px 10px;
+}
 
 
 
 /*
 * Components
 * ================================== */
+$pd-desktop: 24px;
+
+.container_wrap {
+
+  @media screen and (max-width: 1023px) {
+    & > div {
+      width: 100%;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 0 -#{$pd-desktop} -#{$pd-desktop};
+  }
+}
+
 .container {
+  margin: 0 0 16px;
   padding: 2.4rem;
   border-radius: 8px;
+  background-color: #fff;
   box-shadow: 0 0 4px 0 rgba(#000, .14);
 
   h2 {
-    margin: 0 0 10px;
-    font-size: 1.2rem;
+    margin: 0 0 16px;
+    font-size: 1.3rem;
     font-weight: 400;
     letter-spacing: .05em;
+    line-height: 1.2;
   }
 
-  @media screen and (min-width: 900px) {
+  @media screen and (min-width: 1024px) {
+    margin: 0 0 24px 24px;
     padding: 3.2rem 4rem;
 
     h2 {
@@ -204,32 +243,58 @@ img {
 
 
 .container_destination {
-  h2 {
-    color: $color-destination;
+  h2 { color: $color-destination; }
+
+  @media screen and (min-width: 1024px) {
+    width: 31%;
+    flex: 1;
   }
 }
+
+
 
 .container_date {
-  h2 {
-    color: $color-date;
+  h2 { color: $color-date; }
+
+  @media screen and (min-width: 1024px) {
+    width: 48%;
   }
 }
 
-.container_attractions {
-  h2 {
-    color: $color-attractions;
+
+.container_todos {
+  h2 { color: $color-todos; }
+
+  @media screen and (min-width: 1024px) {
+    width: 31%;
+    min-width: 384px;
+    flex: auto;
   }
 }
 
 .container_weather {
+  h2 { color: $color-weather; }
 
-  h2 {
-    color: $color-weather;
-  }
-
-  @media screen and (min-width: 900px) {
-    width: 25.4%;
+  @media screen and (min-width: 1024px) {
+    width: 25%;
     min-width: 305px;
+    flex: 1;
+  }
+}
+
+.container_location {
+  @media screen and (min-width: 1024px) {
+    width: 37.8%;
+    min-width: 463px;
+    flex: 1;
+  }
+}
+
+.container_attractions {
+  h2 { color: $color-attractions; }
+
+  @media screen and (min-width: 1024px) {
+    width: 100%;
   }
 }
 
@@ -371,19 +436,21 @@ nav {
 }
 
 .avatar {
-  width: 250px;
-  height: 250px;
+  width: 100%;
+  text-align: center;
+
   img {
-    height: 100px;
-    width: 100px;
+    height: 64px;
+    width: 64px;
     border-radius: 50%;
   }
-  button {
-    background-color: $primary-color;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 3px;
-    cursor: pointer;
+
+
+
+  p {
+    margin: 4px 0;
+    font-size: 1.4rem;
+    font-weight: 500;
   }
   .inputFile {
   	width: 0.1px;
@@ -394,8 +461,26 @@ nav {
   	z-index: -1;
     cursor: pointer;
   }
-  label {
+  button, label {
+    display: inline-block;
+    width: 100%;
+    max-width: 120px;
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 1.4rem;
+    font-family: inherit;
     cursor: pointer;
+    line-height: 1.2;
+  }
+  button {
+    background-color: $primary-color;
+    color: white;
+    margin: 4px 0 0;
+    padding: 8px 10px;
+  }
+  label {
+    color: white;
+    background-color: #aaa;
   }
   .looping-rhombuses-spinner {
     margin: 0;
@@ -404,6 +489,45 @@ nav {
       background-color: white;
       height: 5px;
       width: 5px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    width: 15%;
+    min-width: 180px;
+    padding: 1.6rem;
+  }
+
+  
+}
+
+.container_date {
+  .DateRangePicker {
+  
+  }
+
+  .DateRangePickerInput_calendarIcon {
+    margin: 0;
+    padding: 0;
+  }
+
+  .DateInput {
+    width: 40%;
+  }
+
+  .DateInput_input {
+    font-size: 1.4rem;
+    border-radius: 0;
+  }
+
+  @media screen and (min-width: 1024px) {
+    .DateInput_input {
+      font-size: 1.8rem;
     }
   }
 }
