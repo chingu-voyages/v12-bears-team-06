@@ -10,7 +10,7 @@ import './style.scss';
 function App() {
 
   return (
-    <div className="app">
+    <div>
       <Suspense fallback={<Loading/>}>
         <Switch>
           <Route path="/board" component={Dashboard} />
