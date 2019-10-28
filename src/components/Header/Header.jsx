@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FiMenu } from 'react-icons/fi';
 
 import Nav from '../Nav/Nav';
@@ -8,8 +9,12 @@ const Header = ({ auth, authenticated, showSideDrawer, sideDrawerToggleHandler }
 
   return (
     <header className="header">
-      <p className="app_title">Travel Planning App</p>
-      <Nav auth={auth} authenticated={authenticated} />
+      <p className="app_title">
+        <Link to="/">Travel Planning App</Link>
+      </p>
+      <Nav
+        auth={auth}
+        authenticated={authenticated} />
       <DrawerToggle
         showSideDrawer={showSideDrawer}
         clicked={sideDrawerToggleHandler}>

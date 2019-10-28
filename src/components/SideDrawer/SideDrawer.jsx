@@ -17,7 +17,10 @@ const SideDrawer = ({ auth, authenticated, showSideDrawer, sideDrawerClosedHandl
         <DrawerToggle clicked={sideDrawerClosedHandler}>
           <FiX />
         </DrawerToggle>
-        <Nav auth={auth} authenticated={authenticated} />
+        <Nav
+          auth={auth}
+          authenticated={authenticated}
+          clicked={sideDrawerClosedHandler}/>
       </div>
       <Backdrop
         show={showSideDrawer}

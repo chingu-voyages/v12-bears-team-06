@@ -110,6 +110,10 @@ const Home = (props) => {
       });
   };
 
+  useEffect(() => {
+    checkAuthState();
+  }, []);
+
   const submitHandler = (event) => {
     event.preventDefault();
     if (event.target.id === 'register') {
@@ -214,6 +218,11 @@ const Home = (props) => {
     button = <button className="plan"><Link to="/board">Plan your trip</Link></button>
   }
 
+  let buttonMain = <button className="plan" onClick={openModalHandler}>Start Planning</button>
+  if(isAuth) {
+    buttonMain = <button className="plan"><Link to="/board">Start Planning</Link></button>
+  }
+
   const [showSideDrawer, setShowSideDrawer] = useState(false);
   const sideDrawerClosedHandler = () => {
     setShowSideDrawer(false);
@@ -226,10 +235,10 @@ const Home = (props) => {
   };
 
   const popular = [
-    { name: 'rusia', img: img_rusia },
-    { name: 'santorini', img: img_santorini },
-    { name: 'venice', img: img_venice },
-    { name: 'turkey', img: img_turkey },
+    { name: 'Russia', img: img_rusia, param: 'country:37' },
+    { name: 'santorini', img: img_santorini, param: 'region:42' },
+    { name: 'venice', img: img_venice, param: 'city:44' },
+    { name: 'turkey', img: img_turkey, param: 'country:34' },
   ];
 
   return (
@@ -257,7 +266,8 @@ const Home = (props) => {
       <Header
         auth={openModalHandler}
         authenticated={isAuth}
-        showSideDrawer={showSideDrawer} 
+        showSideDrawer={showSideDrawer}
+        sideDrawerClosedHandler={sideDrawerClosedHandler}
         sideDrawerToggleHandler={sideDrawerToggleHandler} />
       {!isVisible && (
         <SideDrawer
@@ -271,10 +281,10 @@ const Home = (props) => {
           <div>
             <h2>'TRAVEL PLANNING MADE EASY'</h2>
           <p>all your travel planning in one place</p>
-          {button}
+          {buttonMain}
           </div>
         </section>
-        <section className="intro">
+        <section id="about" className="intro">
           <div className="intro_text">
             <h2>EXPLORE A DIFFERENT<br />WAY TO TRAVEL</h2>
             <p>Lorem ipsum dolor sit amet,<br />
@@ -288,12 +298,14 @@ const Home = (props) => {
           <div className="intro_img"><img src={index01} alt="" /></div>
         </section>
         <section className="popular">
-          <h2>Popular Destination</h2>
+          <h2>Popular Destinations</h2>
           <ul>
             {popular.map(item => (
               <li key={item.name}>
-                <img src={item.img} alt={item.name} />
-                <p><span>{item.name}</span></p>
+                <a href={`https://maps.sygic.com/#/?item=${item.param}`} target="_blank">
+                  <img src={item.img} alt={item.name} />
+                  <p><span>{item.name}</span></p>
+                </a>
               </li>
             ))}
           </ul>
