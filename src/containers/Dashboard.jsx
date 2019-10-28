@@ -22,6 +22,7 @@ const Dashboard = (props) => {
   const [dates, setDate] = useState(null)
 
   useEffect(() => {
+    document.body.removeAttribute('style', 'overflow: hidden;');
     const token = localStorage.getItem('token');
     if (!token) {
       props.history.push('/')
@@ -143,7 +144,7 @@ const Dashboard = (props) => {
     axios.post('/users/logout', bodyParameters, config)
       .then(res => {
         localStorage.removeItem('token');
-        props.history.push('/');
+        props.history.replace('/');
       }).catch(err => setIsError(true));
   }
 
@@ -156,12 +157,15 @@ const Dashboard = (props) => {
   }
 
   return (
-    <div className="">
+    <div className="app">
       {errorMessage}
-      <div className="container_wrap">
+      <header className="header">
+        <h1 className="app_title">Travel Planning App</h1>
         <button onClick={logoutHandler} className="logout">
           Log Out
         </button>
+      </header>
+      <div className="container_wrap">
         <Avatar
           upload={uploadHandler}
           submit={submitUploadHandler}
@@ -176,10 +180,12 @@ const Dashboard = (props) => {
         <Dates
           submit={submitDate}
           date={dates}/>
+        <div className="container container_todos">Todo List</div>
         <Weather
           forecast={forecast}
           loading={loading}
           destination={destination} />
+        <div className="container container_location">Location</div>
         <Attractions
           loading={loading}
           destination={destination}
