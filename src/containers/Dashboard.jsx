@@ -159,10 +159,13 @@ const Dashboard = (props) => {
   return (
     <div className="app">
       {errorMessage}
-      <div className="container_wrap">
+      <header className="header">
+        <h1 className="app_title">Travel Planning App</h1>
         <button onClick={logoutHandler} className="logout">
           Log Out
         </button>
+      </header>
+      <div className="container_wrap">
         <Avatar
           upload={uploadHandler}
           submit={submitUploadHandler}
@@ -177,10 +180,12 @@ const Dashboard = (props) => {
         <Dates
           submit={submitDate}
           date={dates}/>
+        <div className="container container_todos">Todo List</div>
         <Weather
           forecast={forecast}
           loading={loading}
           destination={destination} />
+        <div className="container container_location">Location</div>
         <Attractions
           loading={loading}
           destination={destination}

@@ -239,7 +239,12 @@ nav {
   }
 }
 
-
+.app_title {
+  font-size: 1.8rem;
+  color: $primary-color;
+  font-weight: 600;
+  letter-spacing: .05em;
+}
 
 
 
@@ -925,8 +930,6 @@ $pd-desktop: 24px;
     min-width: 180px;
     padding: 1.6rem;
   }
-
-  
 }
 
 .container_date {
