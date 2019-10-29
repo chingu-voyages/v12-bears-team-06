@@ -21,8 +21,8 @@ const Todos = ({ todos, loading, addTodo, updateTodo, deleteTodo }) => {
     });
   };
 
-  let todo_items = loading ? <Loading /> : todos ? <Loading /> : null;
-  
+  let todo_items = loading ? <Loading /> : todos ? <Loading /> : <p>You don't have todos.</p>;
+
   if (todos && !loading && todos) {
     todo_items = <ul className="todo_items">{formatTodos()}</ul>;
   };

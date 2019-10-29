@@ -9,7 +9,7 @@ import Attractions from '../components/Attractions/Attractions';
 import Message from '../components/Message/Message';
 import Todos from '../components/Todos/Todos';
 
-import tododata from '../components/Todos/tododata';
+//import tododata from '../components/Todos/tododata';
 
 const Dashboard = (props) => {
   const [destination, setDestination] = useState('');
@@ -156,44 +156,45 @@ const Dashboard = (props) => {
   }
 
   const getTodos = () => {
-    setTodos(tododata);
-    // axios.get('/todolist', {headers: {'Authorization': localStorage.getItem('token')}})
-    //   .then(res => {
-    //     console.log(res);
-    //     if(res.data !== undefined) {
-    //       setTodos(res.data);
-    //     }
-    //   })
-    //   .catch(err => setTodos(null));
+    axios.get('/todolist', {headers: {'Authorization': localStorage.getItem('token')}})
+      .then(res => {
+        console.log(res);
+        if(res.data.length > 0) {
+          setTodos(res.data);
+        } else {
+          console.log('todo is empty');
+        }
+      })
+      .catch(err => setTodos([null]));
   }
 
   const addTodo = (todo) => {
     console.log('[add todo]', todo);
-    getTodos();
-    // axios.post('/todolist/add', {headers: {'Authorization': localStorage.getItem('token')}})
-    //   .then(res => {
-    //     console.log(res);
-    //   })
-    //   .catch(err => setTodos(null));
+    axios.post('/todolist/add', {taskDescription: todo}, { headers: { 'Authorization': localStorage.getItem('token') } }, { "taskDescription": todo }
+    )
+      .then(res => {
+        getTodos();
+        console.log(res);
+      })
+      .catch(err => console.log('error'));
   }
 
   const updateTodo = (id) => {
     console.log('[update todo]', id);
-    getTodos();
-    // axios.put('/todolist/${id}', {headers: {'Authorization': localStorage.getItem('token')}})
-    //   .then(res => {
-    //     console.log(res);
-    //   })
-    //   .catch(err => setTodos(null));
+    axios.put('/todolist/${id}', {headers: {'Authorization': localStorage.getItem('token')}})
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => console.log('error'));
   }
   const deleteTodo = (id) => {
     console.log('[delete todo]', id);
-    getTodos();
-    // axios.put('/todolist/${id}', {headers: {'Authorization': localStorage.getItem('token')}})
-    //   .then(res => {
-    //     console.log(res);
-    //   })
-    //   .catch(err => setTodos(null));
+    axios.put('/todolist/${id}', {headers: {'Authorization': localStorage.getItem('token')}})
+      .then(res => {
+        console.log(res);
+        getTodos();
+      })
+      .catch(err => console.log('error'));
   }
 
   return (
