@@ -43,8 +43,11 @@ const Dashboard = (props) => {
     getAvatar();
     getDate();
     getDestination();
-    getTodos();
   }, [props.history]);
+
+  useEffect(() => {
+    getTodos();
+  }, []);
 
   const getDestination = async () => {
     await axios
@@ -171,11 +174,14 @@ const Dashboard = (props) => {
             loading: false,
             currentTodo: initialCurrentTodo
           });
+          console.log('[getTodos] have', todos.todoData);
         } else {
           setTodos({
             ...todos,
+            todoData: [],
             loading: false
           });
+          console.log('[getTodos] empty', todos.todoData);
         }
       })
       .catch(err => setTodos([null]));
