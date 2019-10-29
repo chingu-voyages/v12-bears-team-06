@@ -187,9 +187,10 @@ const Dashboard = (props) => {
       })
       .catch(err => console.log('error'));
   }
+
   const deleteTodo = (id) => {
     console.log('[delete todo]', id);
-    axios.put('/todolist/${id}', {headers: {'Authorization': localStorage.getItem('token')}})
+    axios.put(`/todolist/${id}`, {headers: {'Authorization': localStorage.getItem('token')}})
       .then(res => {
         console.log(res);
         getTodos();
