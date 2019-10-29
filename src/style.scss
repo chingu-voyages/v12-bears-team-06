@@ -411,12 +411,23 @@ nav {
     flex-direction: column;
 
     p {
-      margin: 0 0 24px;
+      margin: 0 0 20px;
       font-size: 1.6rem;
       line-height: 2;
+      width: 80%;
     }
 
     .intro_text {
+      ul {
+        margin-bottom: 24px;
+        padding-left: 20px;
+        width: 80%;
+        li {
+          list-style: circle;
+          font-size: 1.6rem;
+        }
+      }
+
     }
 
     .intro_img {
@@ -522,7 +533,7 @@ nav {
       li {
         width: calc((100% - 128px) / 4);
         margin: 0 0 0 32px;
-        
+
         span {
           font-size: 1.8rem;
         }
