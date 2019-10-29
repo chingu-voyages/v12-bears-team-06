@@ -87,10 +87,19 @@ const Dashboard = (props) => {
     updateDestination(userDestination);
   };
 
+  const deleteDestinationHandler = () => {
+    axios.delete('/users/me/destination', {headers: {'Authorization': localStorage.getItem('token')}})
+      .then(res =>  {
+        setDate(null);
+        setDestination('');
+      })
+      .catch(err =>  setIsError(true))
+  };
+
   const uploadHandler = (event) => {
     setFile(event.target.files[0]);
     setIsUpload(true);
-  }
+  };
 
   const submitUploadHandler = () => {
     setUploadIsLoading(true);
@@ -176,7 +185,8 @@ const Dashboard = (props) => {
         <Destination
           name={destination}
           handleOnSubmit={handleOnSubmit}
-          handleChangeDestination={handleChangeDestination} />
+          handleChangeDestination={handleChangeDestination}
+          clicked={deleteDestinationHandler}/>
         <Dates
           submit={submitDate}
           date={dates}/>
