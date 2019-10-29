@@ -14,7 +14,13 @@ import Todos from '../components/Todos/Todos';
 const Dashboard = (props) => {
   const [destination, setDestination] = useState('');
   const [forecast, setForecast] = useState([]);
-  const [todos, setTodos] = useState([]);
+  const initialCurrentTodo = { id: null, desc: '', done: '' };
+  const [todos, setTodos] = useState({
+    todoData: [],
+    loading: true,
+    editing: false,
+    currentTodo: initialCurrentTodo
+  });
   const [attractions, setAttractions] = useState([]);
   const [file, setFile] = useState(null);
   const [avatar, setAvatar] = useState(null);
@@ -158,44 +164,72 @@ const Dashboard = (props) => {
   const getTodos = () => {
     axios.get('/todolist', {headers: {'Authorization': localStorage.getItem('token')}})
       .then(res => {
-        console.log(res);
         if(res.data.length > 0) {
-          setTodos(res.data);
+          setTodos({
+            ...todos,
+            todoData: res.data,
+            loading: false,
+            currentTodo: initialCurrentTodo
+          });
         } else {
-          console.log('todo is empty');
+          setTodos({
+            ...todos,
+            loading: false
+          });
         }
       })
       .catch(err => setTodos([null]));
   }
 
-  const addTodo = (todo) => {
-    console.log('[add todo]', todo);
-    axios.post('/todolist/add', {taskDescription: todo}, { headers: { 'Authorization': localStorage.getItem('token') } }, { "taskDescription": todo }
+  const addTodo = (desc) => {
+    setTodos({ ...todos, loading: true });
+    axios.post('/todolist/add',
+      { taskDescription: desc },
+      { headers: { 'Authorization': localStorage.getItem('token') } }
     )
-      .then(res => {
-        getTodos();
-        console.log(res);
-      })
-      .catch(err => console.log('error'));
+      .then(res => getTodos())
+      .catch(err => setIsError(true));
   }
 
-  const updateTodo = (id) => {
-    console.log('[update todo]', id);
-    axios.put('/todolist/${id}', {headers: {'Authorization': localStorage.getItem('token')}})
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => console.log('error'));
+  const editTodo = todo => {
+    setTodos({
+      ...todos,
+      editing: true,
+      currentTodo: { id: todo._id, desc: todo.taskDescription, done: todo.taskDone }
+    });
+  }
+
+  const updateTodo = (id, desc) => {
+    setTodos({
+      ...todos,
+      editing: false,
+      loading: true
+    });
+    axios.put(`/todolist/${id}`,
+      { taskDescription: desc },
+      { headers: { 'Authorization': localStorage.getItem('token') } }
+    )
+      .then(res => getTodos())
+      .catch(err => setIsError(true));
+  }
+
+  const toggleTodo = (id) => {
+    setTodos({ ...todos, loading: true });
+    const prevTodos = { ...todos };
+    const currentTodo = prevTodos.todoData.filter(todo => todo._id === id);
+    axios.put(`/todolist/${id}`,
+      { taskDone: !currentTodo[0].taskDone },
+      { headers: { 'Authorization': localStorage.getItem('token') } }
+    )
+      .then(res => getTodos())
+      .catch(err => setIsError(true));
   }
 
   const deleteTodo = (id) => {
-    console.log('[delete todo]', id);
-    axios.put(`/todolist/${id}`, {headers: {'Authorization': localStorage.getItem('token')}})
-      .then(res => {
-        console.log(res);
-        getTodos();
-      })
-      .catch(err => console.log('error'));
+    setTodos({ ...todos, loading: true });
+    axios.delete(`/todolist/${id}`, {headers: {'Authorization': localStorage.getItem('token')}})
+      .then(res => getTodos())
+      .catch(err => setIsError(true));
   }
 
   return (
@@ -220,11 +254,15 @@ const Dashboard = (props) => {
           submit={submitDate}
           date={dates} />
         <Todos
-          todos={todos}
+          todos={todos.todoData}
+          currentTodo={todos.currentTodo}
+          editing={todos.editing}
           addTodo={addTodo}
+          toggleTodo={toggleTodo}
           updateTodo={updateTodo}
+          editTodo={editTodo}
           deleteTodo={deleteTodo}
-          loading={loading} />
+          loading={todos.loading} />
         <Weather
           forecast={forecast}
           loading={loading}

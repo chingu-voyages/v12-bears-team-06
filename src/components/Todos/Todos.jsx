@@ -1,36 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 
-import Loading from '../Loading/Loading';
 import TodoItem from './TodoItem';
 import AddTodo from './AddTodo';
+import Backdrop from '../UI/Backdrop/Backdrop';
 
+import loader from './loader.gif';
 import './todos.scss';
 
-const Todos = ({ todos, loading, addTodo, updateTodo, deleteTodo }) => {
+const Todos = ({ todos, loading, editing, addTodo, toggleTodo, editTodo, updateTodo, deleteTodo, currentTodo }) => {
+
   const formatTodos = () => {
     return todos.map(todo => {
       return (
         <TodoItem
+          todo={todo}
+          currentTodo={currentTodo}
           key={todo._id}
-          id={todo._id}
-          desc={todo.taskDescription}
-          done={todo.taskDone}
+          editing={editing}
+          toggleTodo={toggleTodo}
           updateTodo={updateTodo}
+          editTodo={editTodo}
           deleteTodo={deleteTodo} />
       );
     });
   };
 
-  let todo_items = loading ? <Loading /> : todos ? <Loading /> : <p>You don't have todos.</p>;
-
-  if (todos && !loading && todos) {
-    todo_items = <ul className="todo_items">{formatTodos()}</ul>;
-  };
-
   return (
     <div className="container container_todos">
-      <h2 className="">Todo List</h2>
-      {todo_items}
+      <h2 className="">Todo List{loading ? <img src={loader} alt="loading..." className="todo_loader" /> : null}</h2>
+      <div className="todo_items_wrap">
+        <ul className="todo_items">{formatTodos()}</ul>
+        {loading ? <div className="todo_overlay"></div> : null}
+      </div>
       <AddTodo addTodo={addTodo} />
     </div>
   );
