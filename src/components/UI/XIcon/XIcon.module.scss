@@ -47,7 +47,11 @@
 .Destination {
   display: inline-block;
   height: 5px;
+  .icon {
+    width: 15px;
+  }
   span {
     background-color: #53CBA7;
+    height: 1.5px;
   }
 }

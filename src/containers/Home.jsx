@@ -287,12 +287,12 @@ const Home = (props) => {
         <section id="about" className="intro">
           <div className="intro_text">
             <h2>EXPLORE A DIFFERENT<br />WAY TO TRAVEL</h2>
-            <p>Lorem ipsum dolor sit amet,<br />
-              consectetur tempor incididuntut<br />
-              labore et dolore magna aliqua.<br />
-              taliquip ex ea commodo consequat.<br />
-              Duis aute irure dolor in reprehenderit<br />
-              in voluptate velit esse cillum dolore.</p>
+            <p>Now you only have to check one place for all your travel details.</p>
+            <ul>
+              <li>See the weather at your next destination.</li>
+              <li>Explore the top 10 attractions and find out more by clicking on them.</li>
+              <li>Create a to-do list with things that you still need to arrange before your trip or use it to write down your favorite activities and sights.</li>
+            </ul>
               {button}
           </div>
           <div className="intro_img"><img src={index01} alt="" /></div>
