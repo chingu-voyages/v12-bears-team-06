@@ -1,16 +1,17 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
 const Nav = (props) => {
 
   let planLink = (
     <li>
-      <Link to="/board">Plan your trip</Link>
+      <Link to="/board">Log in</Link>
     </li>
   )
   if(!props.authenticated) {
-    planLink = ( 
-      <li onClick={props.auth}>Plan your trip</li>
+    planLink = (
+      <li onClick={props.auth}>Log in</li>
     )
   }
 
@@ -18,13 +19,7 @@ const Nav = (props) => {
     <nav>
       <ul>
         <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/">About</Link>
-        </li>
-        <li>
-          <Link to="/">Blog</Link>
+          <HashLink to="#about" smooth onClick={props.clicked}>About</HashLink>
         </li>
         {planLink}
       </ul>

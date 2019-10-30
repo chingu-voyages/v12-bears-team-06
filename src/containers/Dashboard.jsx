@@ -32,6 +32,7 @@ const Dashboard = (props) => {
   const [dates, setDate] = useState(null);
 
   useEffect(() => {
+    document.body.removeAttribute('style', 'overflow: hidden;');
     const token = localStorage.getItem('token');
     if (!token) {
       props.history.push('/')
@@ -54,19 +55,24 @@ const Dashboard = (props) => {
     .get(`users/me/destination`, {
       headers: { Authorization: localStorage.getItem('token') }
     })
-    .then(res => {
-      setDestination(res.data.destination);
-      const userDestination = res.data.destination;
-      axios
-        .get(`/destination?address=${userDestination}`, {
-          headers: { Authorization: localStorage.getItem('token') }
-        })
-        .then(res => {
-          //console.log(res.data);
-          setForecast(res.data.forecast);
-          setAttractions(res.data.attractions);
+      .then(res => {
+        if (res.data.destination === 'undefined' || '') {
+          console.log(res.data.destination);
+          setDestination('');
           setLoading(false);
-        });
+        } else {
+          setDestination(res.data.destination);
+          const userDestination = res.data.destination;
+          axios
+          .get(`/destination?address=${userDestination}`, {
+            headers: { Authorization: localStorage.getItem('token') }
+          })
+          .then(res => {
+            setForecast(res.data.forecast);
+            setAttractions(res.data.attractions);
+            setLoading(false);
+          });
+        }
     })
     .catch(err => setLoading(false));
   };
@@ -95,10 +101,19 @@ const Dashboard = (props) => {
     updateDestination(userDestination);
   };
 
+  const deleteDestinationHandler = () => {
+    axios.delete('/users/me/destination', {headers: {'Authorization': localStorage.getItem('token')}})
+      .then(res =>  {
+        setDate(null);
+        setDestination('');
+      })
+      .catch(err =>  setIsError(true))
+  };
+
   const uploadHandler = (event) => {
     setFile(event.target.files[0]);
     setIsUpload(true);
-  }
+  };
 
   const submitUploadHandler = () => {
     setUploadIsLoading(true);
@@ -152,7 +167,7 @@ const Dashboard = (props) => {
     axios.post('/users/logout', bodyParameters, config)
       .then(res => {
         localStorage.removeItem('token');
-        props.history.push('/');
+        props.history.replace('/');
       }).catch(err => setIsError(true));
   }
 
@@ -239,12 +254,15 @@ const Dashboard = (props) => {
   }
 
   return (
-    <div className="">
+    <div className="app">
       {errorMessage}
-      <div className="container_wrap">
+      <header className="header">
+        <h1 className="app_title">Travel Planning App</h1>
         <button onClick={logoutHandler} className="logout">
           Log Out
         </button>
+      </header>
+      <div className="container_wrap">
         <Avatar
           upload={uploadHandler}
           submit={submitUploadHandler}
@@ -255,7 +273,8 @@ const Dashboard = (props) => {
         <Destination
           name={destination}
           handleOnSubmit={handleOnSubmit}
-          handleChangeDestination={handleChangeDestination} />
+          handleChangeDestination={handleChangeDestination}
+          clicked={deleteDestinationHandler}/>
         <Dates
           submit={submitDate}
           date={dates} />
@@ -273,6 +292,7 @@ const Dashboard = (props) => {
           forecast={forecast}
           loading={loading}
           destination={destination} />
+        <div className="container container_location">Location</div>
         <Attractions
           loading={loading}
           destination={destination}

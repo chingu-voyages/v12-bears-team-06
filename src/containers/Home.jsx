@@ -2,9 +2,17 @@ import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import axios from '../utils/api';
 import {checkValidity, updateObject} from '../utils/utility';
-import Nav from '../components/Nav/Nav';
+import Footer from '../components/Footer/Footer';
+import Header from '../components/Header/Header';
+import SideDrawer from '../components/SideDrawer/SideDrawer';
 import Auth from '../components/Auth/Auth';
 import Message from '../components/Message/Message';
+
+import index01 from '../assets/images/index_01.png';
+import img_rusia from '../assets/images/destination_rusia.jpg';
+import img_santorini from '../assets/images/destination_santorini.jpg';
+import img_turkey from '../assets/images/destination_turkey.jpg';
+import img_venice from '../assets/images/destination_venice.jpg';
 
 const Home = (props) => {
 
@@ -103,9 +111,8 @@ const Home = (props) => {
   };
 
   useEffect(() => {
-    checkAuthState()
+    checkAuthState();
   }, []);
-
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -187,8 +194,16 @@ const Home = (props) => {
     setUsername(updatedEmailRegister);
   }
 
+  useEffect(() => {
+    if (isVisible) {
+      document.body.setAttribute('style', 'overflow: hidden;');
+    } else {
+      document.body.removeAttribute('style', 'overflow: hidden;');
+    }
+  }, [isVisible]);
+
   let logoutMessage = null;
-  if (props.history.action === 'PUSH') {
+  if (props.history.action === 'REPLACE') {
     logoutMessage = <Message/>
       setTimeout(() => {
         setIsLogoutMessage(false);
@@ -203,10 +218,32 @@ const Home = (props) => {
     button = <button className="plan"><Link to="/board">Plan your trip</Link></button>
   }
 
+  let buttonMain = <button className="plan" onClick={openModalHandler}>Start Planning</button>
+  if(isAuth) {
+    buttonMain = <button className="plan"><Link to="/board">Start Planning</Link></button>
+  }
+
+  const [showSideDrawer, setShowSideDrawer] = useState(false);
+  const sideDrawerClosedHandler = () => {
+    setShowSideDrawer(false);
+  };
+
+  const sideDrawerToggleHandler = () => {
+    setShowSideDrawer((prevState) => {
+      return !prevState.showSideDrawer
+    });
+  };
+
+  const popular = [
+    { name: 'Russia', img: img_rusia, param: 'country:37' },
+    { name: 'santorini', img: img_santorini, param: 'region:42' },
+    { name: 'venice', img: img_venice, param: 'city:44' },
+    { name: 'turkey', img: img_turkey, param: 'country:34' },
+  ];
+
   return (
-    <React.Fragment>
+    <div className="index">
       {logoutMessage}
-      <Nav auth={openModalHandler} authenticated={isAuth}/>
       <Auth
         isVisible={isVisible}
         isValid={isValid}
@@ -226,8 +263,56 @@ const Home = (props) => {
         passwordRegister={passwordRegister.value}
         isNewUser={isNewUser}
         />
-      {button}
-    </React.Fragment>
+      <Header
+        auth={openModalHandler}
+        authenticated={isAuth}
+        showSideDrawer={showSideDrawer}
+        sideDrawerClosedHandler={sideDrawerClosedHandler}
+        sideDrawerToggleHandler={sideDrawerToggleHandler} />
+      {!isVisible && (
+        <SideDrawer
+          auth={openModalHandler}
+          authenticated={isAuth}
+          showSideDrawer={showSideDrawer}
+          sideDrawerClosedHandler={sideDrawerClosedHandler} />
+      )}
+      <section className="main">
+        <section className="hero">
+          <div>
+            <h2>TRAVEL PLANNING MADE EASY</h2>
+          <p>all your travel planning in one place</p>
+          {buttonMain}
+          </div>
+        </section>
+        <section id="about" className="intro">
+          <div className="intro_text">
+            <h2>EXPLORE A DIFFERENT<br />WAY TO TRAVEL</h2>
+            <p>Now you only have to check one place for all your travel details.</p>
+            <ul>
+              <li>See the weather at your next destination.</li>
+              <li>Explore the top 10 attractions and find out more by clicking on them.</li>
+              <li>Create a to-do list with things that you still need to arrange before your trip or use it to write down your favorite activities and sights.</li>
+            </ul>
+              {button}
+          </div>
+          <div className="intro_img"><img src={index01} alt="" /></div>
+        </section>
+        <section className="popular">
+          <h2>Popular Destinations</h2>
+          <ul>
+            {popular.map(item => (
+              <li key={item.name}>
+                <a href={`https://maps.sygic.com/#/?item=${item.param}`} target="_blank">
+                  <img src={item.img} alt={item.name} />
+                  <p><span>{item.name}</span></p>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </section>
+      <Footer auth={openModalHandler} authenticated={isAuth} />
+    </div>
   )
 }
 

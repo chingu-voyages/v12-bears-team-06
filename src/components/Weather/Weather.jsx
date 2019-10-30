@@ -28,7 +28,7 @@ const Weather = ({ forecast, loading, destination }) => {
     });
   };
 
-  let daily = loading ? <Loading /> : destination ? <Loading /> : <p className="msg_nodestination">You don't have Destination.</p>;
+  let daily = loading ? <Loading /> : destination ? <Loading /> : <p className="msg_nodestination">You haven't entered your destination yet.</p>;
 
   if (destination && !loading && forecast) {
     daily = <ul className="weather_week">{formatDaily()}</ul>;

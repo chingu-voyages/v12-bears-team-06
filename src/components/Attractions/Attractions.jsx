@@ -18,8 +18,8 @@ const Attractions = ({ attractions, loading, destination }) => {
     });
   };
 
-  let attraction_items = loading ? <Loading /> : destination ? <Loading /> : <p className="msg_nodestination">You don't have Destination.</p>;
-  
+  let attraction_items = loading ? <Loading /> : destination ? <Loading /> : <p className="msg_nodestination">You haven't entered your destination yet.</p>;
+
   if (destination && !loading && attractions) {
     attraction_items = <ol className="attraction_items">{formatAttractions()}</ol>;
   };
