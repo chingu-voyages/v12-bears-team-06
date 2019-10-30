@@ -49,7 +49,9 @@ $ease: .25s ease;
 
   .todo_items_wrap {
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    max-height: 300px;
 
     .todo_overlay {
       position: absolute;
