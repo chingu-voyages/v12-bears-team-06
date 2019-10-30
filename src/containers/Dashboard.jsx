@@ -7,10 +7,20 @@ import Weather from '../components/Weather/Weather';
 import Dates from '../components/Dates/Dates';
 import Attractions from '../components/Attractions/Attractions';
 import Message from '../components/Message/Message';
+import Todos from '../components/Todos/Todos';
+
+//import tododata from '../components/Todos/tododata';
 
 const Dashboard = (props) => {
   const [destination, setDestination] = useState('');
   const [forecast, setForecast] = useState([]);
+  const initialCurrentTodo = { id: null, desc: '', done: '' };
+  const [todos, setTodos] = useState({
+    todoData: [],
+    loading: true,
+    editing: false,
+    currentTodo: initialCurrentTodo
+  });
   const [attractions, setAttractions] = useState([]);
   const [file, setFile] = useState(null);
   const [avatar, setAvatar] = useState(null);
@@ -19,7 +29,7 @@ const Dashboard = (props) => {
   const [user, setUser] = useState(null);
   const [isError, setIsError] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [dates, setDate] = useState(null)
+  const [dates, setDate] = useState(null);
 
   useEffect(() => {
     document.body.removeAttribute('style', 'overflow: hidden;');
@@ -35,6 +45,10 @@ const Dashboard = (props) => {
     getDate();
     getDestination();
   }, [props.history]);
+
+  useEffect(() => {
+    getTodos();
+  }, []);
 
   const getDestination = async () => {
     await axios
@@ -165,6 +179,80 @@ const Dashboard = (props) => {
       }, 1000);
   }
 
+  const getTodos = () => {
+    axios.get('/todolist', {headers: {'Authorization': localStorage.getItem('token')}})
+      .then(res => {
+        if(res.data.length > 0) {
+          setTodos({
+            ...todos,
+            todoData: res.data,
+            loading: false,
+            currentTodo: initialCurrentTodo
+          });
+          console.log('[getTodos] have', todos.todoData);
+        } else {
+          setTodos({
+            ...todos,
+            todoData: [],
+            loading: false
+          });
+          console.log('[getTodos] empty', todos.todoData);
+        }
+      })
+      .catch(err => setTodos([null]));
+  }
+
+  const addTodo = (desc) => {
+    setTodos({ ...todos, loading: true });
+    axios.post('/todolist/add',
+      { taskDescription: desc },
+      { headers: { 'Authorization': localStorage.getItem('token') } }
+    )
+      .then(res => getTodos())
+      .catch(err => setIsError(true));
+  }
+
+  const editTodo = todo => {
+    setTodos({
+      ...todos,
+      editing: true,
+      currentTodo: { id: todo._id, desc: todo.taskDescription, done: todo.taskDone }
+    });
+  }
+
+  const updateTodo = (id, desc) => {
+    setTodos({
+      ...todos,
+      editing: false,
+      loading: true
+    });
+    axios.put(`/todolist/${id}`,
+      { taskDescription: desc },
+      { headers: { 'Authorization': localStorage.getItem('token') } }
+    )
+      .then(res => getTodos())
+      .catch(err => setIsError(true));
+  }
+
+  const toggleTodo = (id) => {
+    setTodos({ ...todos, loading: true });
+    const prevTodos = { ...todos };
+    const currentTodo = prevTodos.todoData.filter(todo => todo._id === id);
+    axios.put(`/todolist/${id}`,
+      { taskDone: !currentTodo[0].taskDone },
+      { headers: { 'Authorization': localStorage.getItem('token') } }
+    )
+      .then(res => getTodos())
+      .catch(err => setIsError(true));
+  }
+
+  const deleteTodo = (id) => {
+    setTodos({ ...todos, loading: true });
+    axios.delete(`/todolist/${id}`, {headers: {'Authorization': localStorage.getItem('token')}})
+      .then(res => getTodos())
+      .catch(err => setIsError(true));
+  }
+
   return (
     <div className="app">
       {errorMessage}
@@ -189,8 +277,17 @@ const Dashboard = (props) => {
           clicked={deleteDestinationHandler}/>
         <Dates
           submit={submitDate}
-          date={dates}/>
-        <div className="container container_todos">Todo List</div>
+          date={dates} />
+        <Todos
+          todos={todos.todoData}
+          currentTodo={todos.currentTodo}
+          editing={todos.editing}
+          addTodo={addTodo}
+          toggleTodo={toggleTodo}
+          updateTodo={updateTodo}
+          editTodo={editTodo}
+          deleteTodo={deleteTodo}
+          loading={todos.loading} />
         <Weather
           forecast={forecast}
           loading={loading}
