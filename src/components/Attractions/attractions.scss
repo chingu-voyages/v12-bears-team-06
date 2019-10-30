@@ -11,7 +11,6 @@ $ease: .4s ease-in-out;
 .attraction_items {
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
   margin: 0 0 -#{$margin-mobile} -#{$margin-mobile};
   counter-reset: rank-counter;
 }
