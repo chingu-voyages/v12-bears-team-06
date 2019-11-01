@@ -10,7 +10,7 @@ const Footer = ({ auth, authenticated }) => (
       <Link to="/">Travel Planning App</Link>
     </p>
     <Nav auth={auth} authenticated={authenticated} />
-    <p className="copyright">Built by <span>Bears Team 6</span> Chingu Voyage 2019 <a href="https://github.com/chingu-voyages/v12-bears-team-06" target="_blank" className="link_git"><DiGithubBadge /></a></p>
+    <p className="copyright">Built by <span>Bears Team 6</span> Chingu Voyage 2019 <a href="https://github.com/chingu-voyages/v12-bears-team-06" target="_blank" className="link_git" rel="noopener noreferrer"><DiGithubBadge /></a></p>
   </footer>
 );
 
