@@ -302,7 +302,7 @@ const Home = (props) => {
           <ul>
             {popular.map(item => (
               <li key={item.name}>
-                <a href={`https://maps.sygic.com/#/?item=${item.param}`} target="_blank">
+                <a href={`https://maps.sygic.com/#/?item=${item.param}`} target="_blank" rel="noopener noreferrer">
                   <img src={item.img} alt={item.name} />
                   <p><span>{item.name}</span></p>
                 </a>
