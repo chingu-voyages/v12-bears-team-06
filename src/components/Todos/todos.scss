@@ -47,11 +47,21 @@ $ease: .25s ease;
     }
   }
 
+  /* scrollbar */
+  .rcs-inner-container {
+    padding-right: 8px;
+  }
+  .rcs-custom-scroll .rcs-custom-scrollbar {
+    right: 0;
+  }
+  .rcs-custom-scroll .rcs-inner-handle {
+    background-color: $color-todos;
+  }
+
+
   .todo_items_wrap {
     position: relative;
     overflow-x: hidden;
-    overflow-y: scroll;
-    max-height: 300px;
 
     .todo_overlay {
       position: absolute;
