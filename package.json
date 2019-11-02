@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "react": "^16.10.2",
+    "react-custom-scroll": "^4.1.5",
     "react-dates": "^21.2.1",
     "react-dom": "^16.10.2",
     "react-icons": "^3.7.0",

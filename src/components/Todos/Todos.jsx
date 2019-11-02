@@ -1,4 +1,6 @@
 import React from "react";
+import CustomScroll from "react-custom-scroll";
+import "./customScroll.css";
 
 import TodoItem from './TodoItem';
 import AddTodo from './AddTodo';
@@ -28,7 +30,11 @@ const Todos = ({ todos, loading, editing, addTodo, toggleTodo, editTodo, updateT
 
   if (todos.length > 0) {
     todo_items = (
-      <ul className="todo_items">{formatTodos()}</ul>
+      <CustomScroll
+        className="todo_scrollbar"
+        heightRelativeToParent="200px">
+        <ul className="todo_items">{formatTodos()}</ul>
+      </CustomScroll>
     )
   }
 
