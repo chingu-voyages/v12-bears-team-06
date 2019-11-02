@@ -165,16 +165,12 @@ nav {
     color: #fff;
     font-size: 1.8rem;
     letter-spacing: .05em;
-  }
-
-  li {
     cursor: pointer;
   }
 
   a {
     display: block;
     text-decoration: none;
-    cursor: pointer;
   }
 
   @media screen and (min-width: 768px) {
@@ -184,10 +180,10 @@ nav {
     }
 
     li {
-      margin: 0 0 0 1.5em;
+      margin-left: 1.5em;
     }
 
-    a {
+    li {
       border-bottom: 2px solid rgba(#fff, 0);
       transition: .4s ease;
 
@@ -211,13 +207,22 @@ nav {
   background: $primary-color;
   z-index: 51;
 
-  .app_title {
-    a {
-      font-size: 1.8rem;
-      color: #fff;
-      font-weight: 600;
-      letter-spacing: .05em;
-      text-decoration: none;
+  .app_title,
+  .app_title a {
+    font-size: 1.8rem;
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: .05em;
+    text-decoration: none;
+
+  }
+
+  .app_title a {
+    transition: .3s ease;
+    
+    &:hover {
+      color: lighten(#fff, 10);
+      text-shadow: 0 0 8px rgba(#fff, .6);
     }
   }
 
@@ -231,19 +236,13 @@ nav {
 
     .app_title {
       margin-right: auto;
+      color: $primary-color;
     }
 
     nav {
       display: block;
     }
   }
-}
-
-.app_title {
-  font-size: 1.8rem;
-  color: $primary-color;
-  font-weight: 600;
-  letter-spacing: .05em;
 }
 
 
@@ -327,6 +326,35 @@ nav {
 
     li {
       margin: 0 16px;
+    }
+  }
+
+  .copyright {
+    margin: 24px 0 0;
+    font-size: 1.3rem;
+    text-align: center;
+    letter-spacing: .05em;
+
+    span {
+      font-weight: 600;
+    }
+  }
+
+  .link_git {
+    margin-left: .5em;
+
+    svg {
+      fill: #fff;
+      width: 24px;
+      height: 24px;
+      vertical-align: middle;
+      transition: .3s ease;
+    }
+
+    &:hover {
+      svg {
+        fill: #cc3e08;
+      }
     }
   }
 
@@ -630,7 +658,11 @@ button {
   border: 0;
   background: none;
   padding: 5px 10px;
+  transition: .3s ease;
 }
+
+
+
 
 
 
@@ -755,6 +787,11 @@ $pd-desktop: 24px;
   color: white;
   font-family: inherit;
   cursor: pointer;
+
+  &:hover {
+    background-color: darken($primary-color, 10);
+    box-shadow: 0 8px 12px 0 rgba($primary-color, .24);
+  }
 }
 
 .logout {

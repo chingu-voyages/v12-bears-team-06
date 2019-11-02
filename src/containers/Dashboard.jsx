@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../utils/api';
+import { Link } from 'react-router-dom';
+import { DiGithubBadge } from 'react-icons/di';
 
 import Avatar from '../components/Avatar/Avatar';
 import Destination from '../components/Destination/Destination';
@@ -8,8 +10,6 @@ import Dates from '../components/Dates/Dates';
 import Attractions from '../components/Attractions/Attractions';
 import Message from '../components/Message/Message';
 import Todos from '../components/Todos/Todos';
-
-//import tododata from '../components/Todos/tododata';
 
 const Dashboard = (props) => {
   const [destination, setDestination] = useState('');
@@ -189,14 +189,12 @@ const Dashboard = (props) => {
             loading: false,
             currentTodo: initialCurrentTodo
           });
-          console.log('[getTodos] have', todos.todoData);
         } else {
           setTodos({
             ...todos,
             todoData: [],
             loading: false
           });
-          console.log('[getTodos] empty', todos.todoData);
         }
       })
       .catch(err => setTodos([null]));
@@ -254,7 +252,7 @@ const Dashboard = (props) => {
   }
 
   return (
-    <div className="app">
+    <div className="board">
       {errorMessage}
       <header className="header">
         <h1 className="app_title">Travel Planning App</h1>
@@ -262,7 +260,7 @@ const Dashboard = (props) => {
           Log Out
         </button>
       </header>
-      <div className="container_wrap">
+      <div className="container_wrap app">
         <Avatar
           upload={uploadHandler}
           submit={submitUploadHandler}
@@ -298,6 +296,12 @@ const Dashboard = (props) => {
           destination={destination}
           attractions ={attractions} />
       </div>
+      <footer className="footer">
+        <p className="footer_logo">
+          <Link to="/">Travel Planning App</Link>
+        </p>
+        <p className="copyright">Built by <span>Bears Team 6</span> Chingu Voyage 2019 <a href="https://github.com/chingu-voyages/v12-bears-team-06" target="_blank" className="link_git" rel="noopener noreferrer"><DiGithubBadge /></a></p>
+      </footer>
     </div>
   );
 };
