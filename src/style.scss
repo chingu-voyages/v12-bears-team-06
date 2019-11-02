@@ -760,6 +760,8 @@ $pd-desktop: 24px;
 }
 
 .container_location {
+  h2 { color: $color-locations; }
+
   @media screen and (min-width: 1024px) {
     width: 37.8%;
     min-width: 463px;

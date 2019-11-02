@@ -1,0 +1,11 @@
+.map_wrap {
+  width: 100%;
+
+  & > div {
+    width: unset !important;
+  }
+}
+
+.mapboxgl-popup-close-button {
+  display: none;
+}

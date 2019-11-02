@@ -10,6 +10,7 @@ import Dates from '../components/Dates/Dates';
 import Attractions from '../components/Attractions/Attractions';
 import Message from '../components/Message/Message';
 import Todos from '../components/Todos/Todos';
+import Location from '../components/Location/Location';
 
 const Dashboard = (props) => {
   const [destination, setDestination] = useState('');
@@ -30,6 +31,7 @@ const Dashboard = (props) => {
   const [isError, setIsError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [dates, setDate] = useState(null);
+  const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
 
   useEffect(() => {
     document.body.removeAttribute('style', 'overflow: hidden;');
@@ -57,7 +59,6 @@ const Dashboard = (props) => {
     })
       .then(res => {
         if (res.data.destination === 'undefined' || '') {
-          console.log(res.data.destination);
           setDestination('');
           setLoading(false);
         } else {
@@ -68,8 +69,13 @@ const Dashboard = (props) => {
             headers: { Authorization: localStorage.getItem('token') }
           })
           .then(res => {
+            console.log(res.data);
             setForecast(res.data.forecast);
             setAttractions(res.data.attractions);
+            setLocation({
+              latitude: +res.data.latitude,
+              longitude: +res.data.longitude
+            });
             setLoading(false);
           });
         }
@@ -85,6 +91,10 @@ const Dashboard = (props) => {
       .then(res => {
         setForecast(res.data.forecast);
         setAttractions(res.data.attractions);
+        setLocation({
+          latitude: +res.data.latitude,
+          longitude: +res.data.longitude
+        });
         setLoading(false);
       })
       .catch(err => setIsError(true));
@@ -251,6 +261,10 @@ const Dashboard = (props) => {
       .catch(err => setIsError(true));
   }
 
+  const handleLocation = (data) => {
+    setLocation(data);
+  }
+
   return (
     <div className="board">
       {errorMessage}
@@ -290,7 +304,11 @@ const Dashboard = (props) => {
           forecast={forecast}
           loading={loading}
           destination={destination} />
-        <div className="container container_location">Location</div>
+        <Location
+          data={location}
+          loading={loading}
+          handleLocation={handleLocation}
+          destination={destination} />
         <Attractions
           loading={loading}
           destination={destination}
