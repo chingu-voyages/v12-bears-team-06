@@ -944,9 +944,10 @@ $pd-desktop: 24px;
     cursor: pointer;
   }
   button, label {
-    display: inline-block;
+    display: block;
     width: 100%;
     max-width: 120px;
+    margin: 0 auto;
     padding: 5px 10px;
     border-radius: 3px;
     font-size: 1.4rem;
@@ -957,7 +958,7 @@ $pd-desktop: 24px;
   button {
     background-color: $primary-color;
     color: white;
-    margin: 4px 0 0;
+    margin: 4px auto 0;
     padding: 8px 10px;
   }
   label {
