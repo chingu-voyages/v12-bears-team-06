@@ -307,6 +307,7 @@ const Dashboard = (props) => {
         <Location
           data={location}
           loading={loading}
+          attractions={attractions}
           handleLocation={handleLocation}
           destination={destination} />
         <Attractions
