@@ -1,14 +1,14 @@
 # Travel Planning App (frontend)
 
 ## Overview
-This is the frontend repository for a travel planning app created during the Chingu Voyage 12.
+This is the frontend repository for a travel planning app created during the Chingu Voyage 12.<br>
 Check out the backend repository [here]( https://github.com/chingu-voyages/v12-bears-team-06-repo2).<br>
 See the project in action [here]( https://travel-planning-app.netlify.com/).
 
 ## Team Members
-[Yuri]( https://github.com/chocolat5)
-[Leony]( https://github.com/leonyangela)
-[Josy]( https://github.com/jh1408)
+[Yuri]( https://github.com/chocolat5)<br>
+[Leony]( https://github.com/leonyangela)<br>
+[Josy]( https://github.com/jh1408)<br>
 
 ## Features
 -	Create a user account to get started
