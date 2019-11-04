@@ -10,7 +10,7 @@ const Destination = ({ name, handleOnSubmit, handleChangeDestination, clicked })
         <input
           type="text"
           value={name === 'undefined' ? '' : name}
-          placeholder="Enter your destination ..."
+          placeholder="Enter City Name"
           onChange={handleChangeDestination}
         />
         <XIcon clicked={clicked}
