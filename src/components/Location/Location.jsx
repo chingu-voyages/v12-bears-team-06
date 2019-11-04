@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import ReactMapGL, { NavigationControl, Popup } from 'react-map-gl';
+import ReactMapGL, { NavigationControl } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import Loading from '../Loading/Loading';
@@ -9,9 +9,6 @@ import './location.scss';
 const TOKEN = 'pk.eyJ1IjoiY2hpbmd1djEyIiwiYSI6ImNrMjRpaGRlczAxa2Mzb256MGl0ZDliMWMifQ.4MY11PlRywyFlqXeTLeI4A';
 
 const Location = ({ data, loading, destination, handleLocation }) => {
-  const [spot, setSpot] = useState({
-    spots: { lat: 35.710045, lgt: 139.806422, name: 'Tokyo Sky Tree' }
-  });
 
   const _onViewportChange = (data) => {
     handleLocation(data);
@@ -45,12 +42,6 @@ const Location = ({ data, loading, destination, handleLocation }) => {
           {...data}
           {...settings}
           onViewportChange={_onViewportChange}>
-          <Popup
-            tipSize={8}
-            anchor="bottom-right"
-            longitude={spot.spots.lgt}
-            latitude={spot.spots.lat}
-            closeOnClick={false}><p>{spot.spots.name}</p></Popup>
           <div style={{position: 'absolute', right: '4px', top: '4px'}}>
             <NavigationControl
               onViewportChange={_onViewportChange}
