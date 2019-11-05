@@ -4,8 +4,8 @@ import "./customScroll.css";
 
 import TodoItem from './TodoItem';
 import AddTodo from './AddTodo';
+import LoadingSm from '../Loading/LoadingSm';
 
-import loader from './loader.gif';
 import './todos.scss';
 
 const Todos = ({ todos, loading, editing, addTodo, toggleTodo, editTodo, updateTodo, deleteTodo, currentTodo }) => {
@@ -45,7 +45,7 @@ const Todos = ({ todos, loading, editing, addTodo, toggleTodo, editTodo, updateT
 
   return (
     <div className="container container_todos">
-      <h2 className="">Todo List{loading ? <img src={loader} alt="loading..." className="todo_loader" /> : null}</h2>
+      <h2 className="">Todo List{loading ? <LoadingSm color="#F9C22E" /> : null}</h2>
       <div className="todo_items_wrap">
         {todo_items}
         {loading ? <div className="todo_overlay"></div> : null}

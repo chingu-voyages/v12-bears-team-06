@@ -269,6 +269,7 @@ const Dashboard = (props) => {
           isLoading={uploadIsLoading}
           isUpload={isUpload}/>
         <Destination
+          loading={loading}
           name={destination}
           handleOnSubmit={handleOnSubmit}
           handleChangeDestination={handleChangeDestination}
