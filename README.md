@@ -1,4 +1,5 @@
 # Travel Planning App (frontend)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/1e4845a0-7c1d-48dc-a77e-9281927aff90/deploy-status)](https://app.netlify.com/sites/travel-planning-app/deploys)
 
 ## Overview
 This is the frontend repository for a travel planning app created during the Chingu Voyage 12.<br>
