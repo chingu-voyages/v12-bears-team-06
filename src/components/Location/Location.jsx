@@ -5,9 +5,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import Loading from '../Loading/Loading';
 import './location.scss';
 
-//const TOKEN = 'pk.eyJ1IjoiY2hpbmd1djEyIiwiYSI6ImNrMjRpaTc0ejBqdTYzbXFtMGRpaWI4Y3oifQ.5j9FYNBF0wZ4Z2DmAjYWYg';
-const TOKEN = 'pk.eyJ1IjoiY2hpbmd1djEyIiwiYSI6ImNrMjRpaGRlczAxa2Mzb256MGl0ZDliMWMifQ.4MY11PlRywyFlqXeTLeI4A';
-
+const TOKEN = 'pk.eyJ1IjoiY2hpbmd1djEyIiwiYSI6ImNrMjRpaTc0ejBqdTYzbXFtMGRpaWI4Y3oifQ.5j9FYNBF0wZ4Z2DmAjYWYg';
 
 const Location = ({ data, attractions, loading, destination, handleLocation }) => {
 
