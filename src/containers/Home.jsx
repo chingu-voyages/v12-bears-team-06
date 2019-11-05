@@ -291,6 +291,7 @@ const Home = (props) => {
             <ul>
               <li>See the weather at your next destination.</li>
               <li>Explore the top 10 attractions and find out more by clicking on them.</li>
+              <li>Discover your destination and the most popular sights on the map.</li>
               <li>Create a to-do list with things that you still need to arrange before your trip or use it to write down your favorite activities and sights.</li>
             </ul>
               {button}

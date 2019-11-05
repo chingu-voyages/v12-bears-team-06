@@ -1,9 +1,11 @@
 import React from 'react';
 import { FiExternalLink } from 'react-icons/fi';
+import NoPhoto from '../../assets/images/nophoto.jpg';
 
 const AttractionItem = ({ name, img, url }) => {
+  const bgImg = img === null ? NoPhoto : img;
   const imgUrl = {
-    backgroundImage: `url(${img})`
+    backgroundImage: `url(${bgImg})`
   };
 
   return (
