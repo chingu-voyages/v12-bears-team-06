@@ -28,9 +28,9 @@ const Todos = ({ todos, loading, editing, addTodo, toggleTodo, editTodo, updateT
 
   let todo_items = loading ? null : todos.length > 0 ? null : <p className="msg_nodestination">Let's add todos!</p>;
   let height = '200px'
-  if(window.innerWidth < 1023 && todos.length < 5) {
+  if(window.innerWidth < 1023 && todos.length < 6) {
     height = '100%'
-  } else if (window.innerWidth < 1023 && todos.length > 5) {
+  } else if (window.innerWidth < 1023 && todos.length > 6) {
     height='200px'
   }
   if (todos.length > 0) {
