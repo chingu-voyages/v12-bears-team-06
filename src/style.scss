@@ -219,7 +219,7 @@ nav {
 
   .app_title a {
     transition: .3s ease;
-    
+
     &:hover {
       color: lighten(#fff, 10);
       text-shadow: 0 0 8px rgba(#fff, .6);
@@ -738,8 +738,8 @@ $pd-desktop: 24px;
 
   @media screen and (min-width: 1024px) {
     width: 31%;
-    min-width: 384px;
     flex: auto;
+    max-width: 370px;
   }
 }
 
